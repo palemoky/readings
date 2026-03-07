@@ -6,8 +6,8 @@ site_url: https://readings.palemoky.com
 theme:
   name: material
   language: zh
-  favicon: logo.png
-  logo: logo.png
+  favicon: assets/logo.png
+  logo: assets/logo.png
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
