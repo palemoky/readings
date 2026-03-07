@@ -3,6 +3,8 @@ site_name = "读书笔记"
 site_description = "书籍是与大师对话的最好方式"
 site_author = "palemoky"
 site_url = "https://readings.palemoky.com"
+repo_url = "https://github.com/palemoky"
+repo_name = "palemoky"
 copyright = "Copyright © 2026 Palemoky"
 extra_javascript = [
   "assets/javascripts/mathjax.js",
@@ -18,17 +20,13 @@ language = "zh"
 favicon = "assets/logo.png"
 logo = "assets/logo.png"
 
-[[theme.palette]]
+[[project.theme.palette]]
 scheme = "default"
-primary = "white"
-accent = "blue"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
-[[theme.palette]]
+[[project.theme.palette]]
 scheme = "slate"
-primary = "blue grey"
-accent = "cyan"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to light mode"
 
@@ -62,9 +60,9 @@ items = [
 [extra]
 generator = false
 
-[[extra.social]]
+[[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/palemoky/readings"
+link = "https://github.com/palemoky"
 
 
 [nav]
