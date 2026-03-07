@@ -1,7 +1,7 @@
 [project]
 site_name = "读书笔记"
 site_description = "书籍是与大师对话的最好方式"
-site_author = "palemoky"
+site_author = "Palemoky"
 site_url = "https://readings.palemoky.com"
 repo_url = "https://github.com/palemoky"
 repo_name = "palemoky"
@@ -13,29 +13,21 @@ extra_javascript = [
 extra_css = [
   "assets/stylesheets/extra.css",
 ]
+nav = [
+  { "首页" = "index.md" },
+  { "操作系统" = ["CSAPP/README.md", "DDIA/README.md"] },
+  { "数据库" = ["MySQL/README.md", "Redis/README.md"] },
+  { "网络" = ["TCP/IP/README.md"] },
+]
 
-[theme]
-name = "material"
+[project.theme]
+variant = "modern"
 language = "zh"
+primary = "white"
+accent = "blue"
 favicon = "assets/logo.png"
 logo = "assets/logo.png"
-
-[[project.theme.palette]]
-scheme = "default"
-toggle.icon = "lucide/sun"
-toggle.name = "Switch to dark mode"
-
-[[project.theme.palette]]
-scheme = "slate"
-toggle.icon = "lucide/moon"
-toggle.name = "Switch to light mode"
-
-[theme.icon]
-repo = "fontawesome/brands/github"
-edit = "lucide/file-edit"
-
-[theme.features]
-items = [
+features = [
   "announce.dismiss",
   "content.action.edit",
   "content.action.view",
@@ -54,20 +46,18 @@ items = [
   "search.highlight",
   "search.share",
   "search.suggest",
-  "toc.follow"
+  "toc.follow",
 ]
 
-[extra]
+palette = [
+  { scheme = "default", toggle.icon = "lucide/sun", toggle.name = "Switch to dark mode" },
+  { scheme = "slate", toggle.icon = "lucide/moon", toggle.name = "Switch to light mode" },
+]
+icon.repo = "fontawesome/brands/github"
+icon.edit = "lucide/file-edit"
+
+[project.extra]
 generator = false
-
-[[project.extra.social]]
-icon = "fontawesome/brands/github"
-link = "https://github.com/palemoky"
-
-
-[nav]
-"首页" = "index.md"
-
-[nav.computer]
-title = "计算机"
-"深入理解计算机系统" = "csapp/README.md"
+social = [
+  { icon = "fontawesome/brands/github", link = "https://github.com/palemoky" },
+]
