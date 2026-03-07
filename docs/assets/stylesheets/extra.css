@@ -1,0 +1,171 @@
+/* Custom styles for MkDocs - Performance optimizations and UI enhancements */
+
+/* === Performance Optimizations === */
+
+/* Font loading optimization */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap; /* Display text immediately, swap font when loaded */
+  src: local("Roboto"), local("Roboto-Regular");
+}
+
+/* Critical CSS for reducing first paint blocking */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+}
+
+/* Lazy loading placeholder animation */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Reduce repaints by using transform instead of top/left */
+.md-header {
+  will-change: transform;
+}
+
+/* Smooth scrolling on touch devices */
+.md-content {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* === UI Enhancements === */
+
+/* Semantic figure and figcaption styles */
+figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+figcaption {
+  font-size: 14px;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.5em;
+}
+
+/* Image caption styles for table cells (where figure tags are not suitable) */
+.img-caption {
+  font-size: 14px;
+}
+
+/* === Table Enhancements === */
+
+/* Vertically center content in table cells with rowspan */
+/* Vertically center content in table cells with rowspan */
+.md-typeset table td[rowspan],
+.md-typeset table th[rowspan] {
+  vertical-align: middle !important;
+}
+
+/* === Wide Screen Mode === */
+[data-wide-screen="true"] .md-sidebar {
+  display: none !important;
+}
+
+[data-wide-screen="true"] .md-grid {
+  max-width: 80% !important;
+  margin: 0 auto !important;
+}
+
+[data-wide-screen="true"] .md-content {
+  margin: 0 !important;
+}
+
+.width-toggle-btn {
+  cursor: pointer;
+  position: relative;
+}
+
+.width-toggle-btn svg,
+.width-toggle-btn img {
+  color: var(--md-default-fg-color);
+}
+
+/* Dark mode: use pure white for icon to match other header icons */
+[data-md-color-scheme="slate"] .width-toggle-btn svg,
+[data-md-color-scheme="slate"] .width-toggle-btn img {
+  color: #fff;
+}
+
+/* Custom tooltip for immediate display with bold text */
+.width-toggle-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  font-family: Roboto, -apple-system, "system-ui", "Helvetica, Arial", "sans-serif";
+  font-size: 13.33px;
+  font-weight: 400;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.width-toggle-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* === Code Block Enhancements === */
+
+/* Target the outer container with BOTH language-xxx AND highlight classes */
+div[class*="language-"].highlight {
+  position: relative;
+}
+
+/* Language label using ::after pseudo-element */
+div[class*="language-"].highlight::after {
+  position: absolute;
+  right: 2.8em; /* Offset to avoid overlap with copy button */
+  top: 0.6em;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--md-code-fg-color);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Language-specific labels */
+div.language-go.highlight::after { content: "Go"; }
+div.language-python.highlight::after { content: "Python"; }
+div.language-java.highlight::after { content: "Java"; }
+div.language-rust.highlight::after { content: "Rust"; }
+div.language-cpp.highlight::after { content: "C++"; }
+div.language-c.highlight::after { content: "C"; }
+div.language-javascript.highlight::after { content: "JavaScript"; }
+div.language-typescript.highlight::after { content: "TypeScript"; }
+div.language-bash.highlight::after { content: "Bash"; }
+div.language-shell.highlight::after { content: "Shell"; }
+div.language-sql.highlight::after { content: "SQL"; }
+div.language-yaml.highlight::after { content: "YAML"; }
+div.language-json.highlight::after { content: "JSON"; }
+div.language-markdown.highlight::after { content: "Markdown"; }
+div.language-html.highlight::after { content: "HTML"; }
+div.language-css.highlight::after { content: "CSS"; }
