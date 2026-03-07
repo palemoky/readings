@@ -15,9 +15,9 @@ extra_css = [
 ]
 nav = [
   { "首页" = "index.md" },
-  { "操作系统" = ["CSAPP/README.md", "DDIA/README.md"] },
-  { "数据库" = ["MySQL/README.md", "Redis/README.md"] },
-  { "网络" = ["TCP/IP/README.md"] },
+  { "操作系统" = ["csapp/README.md", "ddia/README.md"] },
+  { "数据库" = ["mysql/README.md", "redis/README.md"] },
+  { "网络" = ["tcp-ip/README.md"] },
 ]
 
 [project.theme]
