@@ -2,9 +2,6 @@ site_name: 读书笔记
 site_description: 书籍是与大师对话的最好方式
 site_author: palemoky
 site_url: https://readings.palemoky.com
-repo_url: https://github.com/palemoky/readings
-repo_name: palemoky/readings
-edit_uri: edit/main/core/
 
 theme:
   name: material
