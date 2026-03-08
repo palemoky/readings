@@ -35,21 +35,21 @@ nav = [
     {"Redis DevOps" = "database/redis-dev-ops/README.md"}
   ] },
   { "软件工程" = [
-     {"软件工程" = "software/README.md"},
+    {"软件工程" = "software/README.md"},
     {"编码" = "software/code/README.md"},
     {"代码大全" = "software/code-complete/README.md"}, 
     {"精通正则表达式" = "software/mastering-regular-expressions/README.md"}
   ] },
   { "安全与加密" = [
-    {"安全与加密" = "crypto/README.md"}
+    {"安全与加密" = "crypto/README.md"},
     {"图解密码技术" = "crypto/cryptography/README.md"}
   ] },
   { "区块链" = [
-    {"区块链" = "blockchain/README.md"}
+    {"区块链" = "blockchain/README.md"},
     {"精通以太坊" = "blockchain/mastering-ethereum/README.md"}
   ] },
   { "其他" = [
-    {"其他" = "others/README.md"}
+    {"其他" = "others/README.md"},
     {"人类简史" = "others/sapiens/README.md"}
   ] },
 ]
