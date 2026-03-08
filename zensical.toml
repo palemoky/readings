@@ -32,7 +32,7 @@ nav = [
   { "数据库" = [
     {"数据库" = "database/README.md"}, 
     {"高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
-    {"Redis DevOps" = "database/redis-dev-ops/README.md"}
+    {"Redis 开发与运维" = "database/redis-dev-ops/README.md"}
   ] },
   { "软件工程" = [
     {"软件工程" = "software/README.md"},
