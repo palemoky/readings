@@ -21,7 +21,7 @@ nav = [
     {"数据密集型应用设计" = "os/ddia/README.md"}, 
     {"操作系统导论" = "os/ostep/README.md"}, 
     {"Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
-    {"系统性能" = "os/systems-performance/README.md"}, 
+    {"性能之巅" = "os/systems-performance/README.md"}, 
   ] },
   { "网络通信" = [
     {"网络通信" = "network/README.md"}, 
