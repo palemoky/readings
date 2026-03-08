@@ -17,25 +17,22 @@ nav = [
   { "首页" = "index.md" },
   { "计算机系统" = [
     {"深入理解计算机系统" = "csapp/README.md"}, 
-    {"深入理解数据结构与算法" = "ddia/README.md"}, 
+    {"数据密集型应用设计" = "ddia/README.md"}, 
     {"操作系统导论" = "ostep/README.md"}, 
     {"Linux UNIX 系统编程" = "linux-unix-system-programming/README.md"}, 
     {"系统性能" = "systems-performance/README.md"}, 
-    {"代码大全" = "code/README.md"}
   ] },
   { "网络通信" = [
-    {"TCP/IP" = "tcp-ip/README.md"}, 
     {"HTTP 完全指南" = "http-the-definitive-guide/README.md"}, 
     {"网络是如何工作的" = "how-networks-work/README.md"}, 
-    {"TCP/IP 卷 1" = "tcp-ip-vol1/README.md"}
+    {"TCP/IP" = "tcp-ip-vol1/README.md"}
   ] },
   { "数据库" = [
-    {"MySQL" = "mysql/README.md"}, 
-    {"Redis" = "redis/README.md"}, 
     {"高性能 MySQL" = "high-performance-mysql/README.md"}, 
     {"Redis DevOps" = "redis-dev-ops/README.md"}
   ] },
   { "软件工程" = [
+    {"编码" = "code/README.md"}
     {"代码大全" = "code-complete/README.md"}, 
     {"精通正则表达式" = "mastering-regular-expressions/README.md"}
   ] },
@@ -45,7 +42,7 @@ nav = [
   { "区块链" = [
     {"精通以太坊" = "mastering-ethereum/README.md"}
   ] },
-  { "社会人文" = [
+  { "其他" = [
     {"人类简史" = "sapiens/README.md"}
   ] },
 ]
