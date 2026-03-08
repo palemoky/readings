@@ -20,13 +20,13 @@ nav = [
     {"深入理解计算机系统" = "os/csapp/README.md"}, 
     {"数据密集型应用设计" = "os/ddia/README.md"}, 
     {"操作系统导论" = "os/ostep/README.md"}, 
-    {"Linux UNIX 系统编程" = "os/linux-unix-system-programming/README.md"}, 
+    {"Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
     {"系统性能" = "os/systems-performance/README.md"}, 
   ] },
   { "网络通信" = [
     {"网络通信" = "network/README.md"}, 
-    {"HTTP 完全指南" = "network/http-the-definitive-guide/README.md"}, 
-    {"网络是如何工作的" = "network/how-networks-work/README.md"}, 
+    {"HTTP 权威指南" = "network/http-the-definitive-guide/README.md"}, 
+    {"网络是怎样连接的" = "network/how-networks-work/README.md"}, 
     {"TCP/IP" = "network/tcp-ip-vol1/README.md"}
   ] },
   { "数据库" = [
