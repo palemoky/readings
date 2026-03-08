@@ -32,7 +32,7 @@ nav = [
     {"Redis DevOps" = "redis-dev-ops/README.md"}
   ] },
   { "软件工程" = [
-    {"编码" = "code/README.md"}
+    {"编码" = "code/README.md"},
     {"代码大全" = "code-complete/README.md"}, 
     {"精通正则表达式" = "mastering-regular-expressions/README.md"}
   ] },
