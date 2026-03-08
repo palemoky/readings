@@ -16,34 +16,41 @@ extra_css = [
 nav = [
   { "首页" = "index.md" },
   { "计算机系统" = [
-    {"深入理解计算机系统" = "csapp/README.md"}, 
-    {"数据密集型应用设计" = "ddia/README.md"}, 
-    {"操作系统导论" = "ostep/README.md"}, 
-    {"Linux UNIX 系统编程" = "linux-unix-system-programming/README.md"}, 
-    {"系统性能" = "systems-performance/README.md"}, 
+    {"计算机系统" = "os/README.md"}, 
+    {"深入理解计算机系统" = "os/csapp/README.md"}, 
+    {"数据密集型应用设计" = "os/ddia/README.md"}, 
+    {"操作系统导论" = "os/ostep/README.md"}, 
+    {"Linux UNIX 系统编程" = "os/linux-unix-system-programming/README.md"}, 
+    {"系统性能" = "os/systems-performance/README.md"}, 
   ] },
   { "网络通信" = [
-    {"HTTP 完全指南" = "http-the-definitive-guide/README.md"}, 
-    {"网络是如何工作的" = "how-networks-work/README.md"}, 
-    {"TCP/IP" = "tcp-ip-vol1/README.md"}
+    {"网络通信" = "network/README.md"}, 
+    {"HTTP 完全指南" = "network/http-the-definitive-guide/README.md"}, 
+    {"网络是如何工作的" = "network/how-networks-work/README.md"}, 
+    {"TCP/IP" = "network/tcp-ip-vol1/README.md"}
   ] },
   { "数据库" = [
-    {"高性能 MySQL" = "high-performance-mysql/README.md"}, 
-    {"Redis DevOps" = "redis-dev-ops/README.md"}
+    {"数据库" = "database/README.md"}, 
+    {"高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
+    {"Redis DevOps" = "database/redis-dev-ops/README.md"}
   ] },
   { "软件工程" = [
-    {"编码" = "code/README.md"},
-    {"代码大全" = "code-complete/README.md"}, 
-    {"精通正则表达式" = "mastering-regular-expressions/README.md"}
+     {"软件工程" = "software/README.md"},
+    {"编码" = "software/code/README.md"},
+    {"代码大全" = "software/code-complete/README.md"}, 
+    {"精通正则表达式" = "software/mastering-regular-expressions/README.md"}
   ] },
   { "安全与加密" = [
-    {"密码学" = "cryptography/README.md"}
+    {"安全与加密" = "crypto/README.md"}
+    {"图解密码技术" = "crypto/cryptography/README.md"}
   ] },
   { "区块链" = [
-    {"精通以太坊" = "mastering-ethereum/README.md"}
+    {"区块链" = "blockchain/README.md"}
+    {"精通以太坊" = "blockchain/mastering-ethereum/README.md"}
   ] },
   { "其他" = [
-    {"人类简史" = "sapiens/README.md"}
+    {"其他" = "others/README.md"}
+    {"人类简史" = "others/sapiens/README.md"}
   ] },
 ]
 
