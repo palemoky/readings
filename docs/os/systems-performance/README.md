@@ -44,26 +44,25 @@
     
     </aside>
     
-    ![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled.png)
+    ![Linux下工具一览图](imgs/linux-perf-tools-map.png)
     
-    ![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%201.png)
-
+    ![BPF性能剖析工具](imgs/bpf-perf-tools.png)
 
 ---
 
-![通用系统软件栈](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%202.png)
+![通用系统软件栈](imgs/general-system-stack.png)
 
 通用系统软件栈
 
-![不同层级的调优对象](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%203.png)
+![不同层级的调优对象](imgs/tuning-targets-by-layer.png)
 
 不同层级的调优对象
 
-![各层级的延时可视化](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%204.png)
+![各层级的延时可视化](imgs/latency-visualization.png)
 
 各层级的延时可视化
 
-![缓存命中率和性能](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%205.png)
+![缓存命中率和性能](imgs/cache-hit-rate-performance.png)
 
 缓存命中率和性能
 
@@ -290,12 +289,12 @@ DTrace 和SystemTap 都是可编程环境，在它们之上可以构建系统级
     - 当期望锁的竞争能轻一些的时候很适用。创建固定数目的锁，用哈希算法来选择哪个锁用于哪个数据结构。这就避免了随数据结构创建和销毁锁的开销，也避免了只使用单个锁的问题。
     - 理想情况下，为了最大程度的并行，哈希表的桶的数目应该大于或等于CPU 的数目
     - 对于放置于内存中的相邻的锁列表，当多个锁落在同一个缓存行时会产生性能问题。例如，两个CPU 更新位于同一个缓存行的不同的锁，会引起缓存一致性开销，每个CPU 的缓存行在另一个CPU 那儿都是失效的。这种情况称为**伪共享**（falsesharing），这一问题一般是通过往哈希锁里填充无用字节来解决的，这样在内存中缓存行里只会有一个锁存在。
-    ![哈希表示例。哈希表中的 4 个项目被称为桶，每个桶都有自己的锁](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%206.png)
-    哈希表示例。哈希表中的 4 个项目被称为桶，每个桶都有自己的锁
+      ![哈希表示例。哈希表中的 4 个项目被称为桶，每个桶都有自己的锁](imgs/hash-table-locks.png)
+      哈希表示例。哈希表中的 4 个项目被称为桶，每个桶都有自己的锁
 
-![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%207.png)
+![具有虚拟机的语言运行流程1](imgs/java-erlang-vm.png)
 
-![具有虚拟机的语言，如 Java 和 Erlang，其代码运行流程](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%208.png)
+![具有虚拟机的语言运行流程2](imgs/garbage-collection.png)
 
 具有虚拟机的语言，如 Java 和 Erlang，其代码运行流程
 
@@ -319,7 +318,7 @@ CPU 的指令步骤包括：
 4. 内存访问
 5. 寄存器写回
 
-![物理上的四核 CPU 因超线程可以在逻辑上划分为八核](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%209.png)
+![物理上的四核 CPU 因超线程可以在逻辑上划分为八核](imgs/hyper-threading-cpu.png)
 
 物理上的四核 CPU 因超线程可以在逻辑上划分为八核
 
@@ -329,7 +328,7 @@ CPI（cycles per instruction，每指令周期数）较高代表CPU 经常陷入
 
 计算密集的应用程序几乎会把大量的时间用在用户态代码上，I/O 密集的应用程序的系统调用频率较高，通过执行内核代码进行I/O 操作。
 
-![多进程与多线程](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2010.png)
+![多进程与多线程](imgs/multi-process-thread.png)
 
 多进程与多线程
 
@@ -339,15 +338,15 @@ CPI（cycles per instruction，每指令周期数）较高代表CPU 经常陷入
 
 Linux 目前把**在不可中断状态执行磁盘I/O 的任务也计入了平均负载**，这意味着平均负载再也不能单用来表示CPU余量或者饱和度。
 
-![通用双核处理器构成](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2011.png)
+![通用双核处理器构成](imgs/dual-core-processor.png)
 
 通用双核处理器构成
 
-![CPU 使用率热图，5312 颗CPU](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2012.png)
+![CPU 使用率热图，5312 颗CPU](imgs/cpu-utilization-heatmap.png)
 
 CPU 使用率热图，5312 颗CPU
 
-![Linux 内核 perf 分析的火焰图](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2013.png)
+![Linux 内核 perf 分析的火焰图](imgs/linux-perf-flamegraph.png)
 
 Linux 内核 perf 分析的火焰图
 
@@ -384,7 +383,7 @@ MMU（ Memory Manage Unit，内存管理单元）
 
 # 第 8 章 文件系统
 
-![文件系统接口](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2014.png)
+![文件系统接口](imgs/vfs-architecture.png)
 
 文件系统接口
 
@@ -400,7 +399,7 @@ free 读取的是 `/proc/meminfo` 文件的信息
 
 带宽是存储传输或者控制器能够达到的最大数据传输速率。
 
-![磁盘I/O 延时时间尺度示例](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2015.png)
+![磁盘I/O 延时时间尺度示例](imgs/disk-io-latency-scale.png)
 
 磁盘I/O 延时时间尺度示例
 
@@ -425,7 +424,7 @@ free 读取的是 `/proc/meminfo` 文件的信息
 - 随机和连续比例
 - 读写比
 
-![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2016.png)
+![网络协议栈](imgs/network-stack.png)
 
 # 第 10 章 网络
 
@@ -433,7 +432,7 @@ free 读取的是 `/proc/meminfo` 文件的信息
 
 吞吐量表示当前两个网络端点之间的数据传输率，以b/s 或者B/s 为单位测量。
 
-![协议栈模型](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2017.png)
+![协议栈模型](imgs/tcp-ip-model.png)
 
 协议栈模型
 
@@ -844,9 +843,9 @@ udp6       0      0 :::5353                 :::*                                
 
 图中与性能相关的指标以加粗强调
 
-![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2018.png)
+![网络性能监控](imgs/netstat-performance-metrics.png)
 
-![Untitled](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2019.png)
+![ss命令性能监控](imgs/ss-performance-metrics.png)
 
 ### ss
 
@@ -933,11 +932,11 @@ listening on docker0, link-type EN10MB (Ethernet), capture size 262144 bytes
 07:26:24.129561 IP 36.112.109.115.6783 > 172.17.0.3.14430: Flags [S], seq 2343138436, win 65535, options [mss 1200,nop,wscale 6,nop,nop,TS val 2964386200 ecr 0,sackOK,eol], length 0
 ```
 
-![输出显示出被内核丢弃而没有传给tcpdump的数据包数量，这发生在数据包速率过高时](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2020.png)
+![tcpdump被丢弃的数据包](imgs/tcpdump-dropped-packets.png)
 
 输出显示出被内核丢弃而没有传给tcpdump的数据包数量，这发生在数据包速率过高时
 
-![由于过高的数据包速率导致无法实时研究它们，从导出的文件检查数据包](%E3%80%8A%E6%80%A7%E8%83%BD%E4%B9%8B%E5%B7%85%E3%80%8B/Untitled%2021.png)
+![tcpdump分析数据包文件](imgs/tcpdump-file-inspection.png)
 
 由于过高的数据包速率导致无法实时研究它们，从导出的文件检查数据包
 
