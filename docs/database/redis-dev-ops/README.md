@@ -231,7 +231,7 @@ Redis 设计内部编码与外部结构有两个好处 ：
 
 跳表（skiplist）讲解
 
-![Untitled](%E3%80%8ARedis%E5%BC%80%E5%8F%91%E4%B8%8E%E8%BF%90%E7%BB%B4%E3%80%8B/Untitled.png)
+![跳表（skiplist）结构图](imgs/skiplist-diagram.png)
 
 可以通过`object encoding key`命令查询内部编码。
 
