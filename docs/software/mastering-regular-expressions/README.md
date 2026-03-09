@@ -24,6 +24,7 @@
 
 <figure align="center">
     <img src="imgs/regex-metacharacters-diagram.png" alt="Regex元字符图解" width="60%" />
+    <figcaption>Regex元字符图解</figcaption>
 </figure>
 
 ### 元字符与优先级
