@@ -6,7 +6,7 @@
     - **时间**：02/23/2025 → 03/09/2025
     - **读后感**：在AI流行的2025年阅读此书，其中的不少章节已经过时（比如Perl、PHP），相比那些在线互动式教学而言，书本阅读显得效率很低，但其中关于正则表达式的原理和优化部分仍然很有价值。
 
-# Reference
+## Reference
 
 交互式入门：https://regexlearn.com/zh-cn
 
@@ -20,11 +20,9 @@
 - https://regex101.com/
 - https://regexr.com/
 
-# Basic
+## Basic
 
-![Regex元字符图解](%E3%80%8A%E7%B2%BE%E9%80%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8B%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89/image.png)
-
-Regex元字符图解
+![Regex元字符图解](imgs/regex-metacharacters-diagram.png)
 
 | 元字符   | 含义                       |
 | -------- | -------------------------- |
@@ -40,12 +38,12 @@ Regex元字符图解
 | `[a-z]`  | 连续范围                   |
 
 | 优先级 | 元字符                                 |
-| ------ | -------------------------------------- | --- |
+| ------ | -------------------------------------- |
 | Top    | `\`                                    |
 | High   | `()`, `(?:)`, `(?=)`, `[]`             |
 | Normal | `*`, `+`, `?`, `{n}`, `{n,}`, `{n, m}` |
 | Low    | `^`, `$`                               |
-| Bottom | `                                      | `   |
+| Bottom | <code>&#124;</code>                    |
 
 | 元字符       | 数量限定 |
 | ------------ | -------- |
@@ -56,15 +54,10 @@ Regex元字符图解
 | `{n,}`       | ≥ n      |
 | `{n,m}`      | n ~ m    |
 
-| 零宽断言/
-Lookaround | Lookbehind | Lookahead |
-| --- | --- | --- |
-| Positive | `(?<=exp)`
-反向肯定预查 | `(?=exp)`
-正向肯定预查 |
-| Negative | `(?<!exp)`
-反向否定预查 | `(?!exp)`
-正向否定预查 |
+| 零宽断言/Lookaround | Lookbehind                 | Lookahead                 |
+| ------------------- | -------------------------- | ------------------------- |
+| Positive            | `(?<=exp)`<br>反向肯定预查 | `(?=exp)`<br>正向肯定预查 |
+| Negative            | `(?<!exp)`<br>反向否定预查 | `(?!exp)`<br>正向否定预查 |
 
 正向预查（Lookahead）和反向预查（Lookbehind）分别表示向前和向后探查匹配，**使用临时指针完成探查**。
 
@@ -84,7 +77,7 @@ Lookaround | Lookbehind | Lookahead |
 | `(?>exp)`     | [原子组](https://stackoverflow.com/questions/2973436/regex-lookahead-lookbehind-and-atomic-groups) 可以阻止分组内部的回溯 |
 | `(?#comment)` | 注释                                                                                                                      |
 
-在某些语言（如Python）和工具中，启用“忽略模式里的空白符”选项，在编写表达式时能任意的添加空格，Tab，换行，而实际使用时这些都将被忽略。如右所示。
+在某些语言（如Python）和工具中，启用“忽略模式里的空白符”选项，在编写表达式时能任意的添加空格，Tab，换行，而实际使用时这些都将被忽略。如下所示。
 
 ```perl
 (?<=    # 断言要匹配的文本的前缀
@@ -136,7 +129,7 @@ Line\n <- Matched
 Line   <- Matched
 ```
 
-# Tips
+## Tips
 
 - `^[abc]` 表起始位置为a或b或c，`[^abc]` 表排除指定字符abc。
 - 元字符是否需要转义取决于上下文，如`-`在`[]`内需要被转义或放在开头，在`[]`外则不需要；`?*+$`在`[]`外需要被转义，在`[]`内则不需要。
@@ -157,78 +150,54 @@ Line   <- Matched
     - **引擎的实现:** 不同的引擎有不同的内存管理方式
 - .Net 平衡组可匹配HTML标签和配对符（`{[()]}`）
 
-# Examples
+## Examples
 
-| Type                    | RegEx                                         | Match                                                                                                                   | Mismatch                                              | Key Point     |
-| ----------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------- | ------------------------------ |
-| Email                   | `^[\w.-]+@\w+(?:\.\w+)+$`                     | [test@example.com](mailto:test@example.com)，user_123@domain.co.uk                                                      | plainaddress，@missinglocalpart.com，user@domain..com | Assertions    |
-| @后可能有多个.后缀      |
-| URL                     | `http[s]?:\/{2}[w.]*[a-z]+\.[a-z]+[\/\?=\w]+` | [http://example.com](http://example.com/)，[https://www.example.com/path?query=1](https://www.example.com/path?query=1) | htt://example.com，http://.com                        |               |
-| IPv4                    | Solution1: `^(25[0-5]                         | 2[0-4]\d                                                                                                                | [01]?\d\d?)(\.(25[0-5]                                | 2[0-4]\d      | [01]?\d\d?)){3}$`              |
-| Solution2: `^((2[0-4]\d | 25[0-5]                                       | [01]?\d\d?)\.){3}(2[0-4]\d                                                                                              | 25[0-5]                                               | [01]?\d\d?)$` | 192.168.0.1，255.255.255.255， |
-| 0.0.0.0                 | 256.256.256.256，192.168.0.999                | 拆分为0~199、200~249、250~255处理                                                                                       |
+| Type                                                                                                         | RegEx                                                                                                                                                                                                                              | Match                                                                                                                   | Mismatch                                              | Key Point                         |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------------- |
+| Email                                                                                                        | `^[\w.-]+@\w+(?:\.\w+)+$`                                                                                                                                                                                                          | [test@example.com](mailto:test@example.com)，user_123@domain.co.uk                                                      | plainaddress，@missinglocalpart.com，user@domain..com | Assertions <br>@后可能有多个.后缀 |
+| URL                                                                                                          | `http[s]?:\/{2}[w.]*[a-z]+\.[a-z]+[\/\?=\w]+`                                                                                                                                                                                      | [http://example.com](http://example.com/)，[https://www.example.com/path?query=1](https://www.example.com/path?query=1) | htt://example.com，http://.com                        |                                   |
+| IPv4                                                                                                         | Solution1: <code>^(25[0-5]&#124;2[0-4]\d&#124;[01]?\d\d?)(\.(25[0-5]&#124;2[0-4]\d&#124;[01]?\d\d?)){3}$</code><br>Solution2: <code>^((2[0-4]\d&#124;25[0-5]&#124;[01]?\d\d?)\.){3}(2[0-4]\d&#124;25[0-5]&#124;[01]?\d\d?)$</code> | 192.168.0.1，255.255.255.255，<br>0.0.0.0                                                                               | 256.256.256.256，192.168.0.999                        | 拆分为0~199、200~249、250~255处理 |
+| Password <br> ①至少有1位大写字母、1位小写字母、1位数字；<br>②允许包含!@#$%等特殊字符；<br>③密码长度至少为8位 | `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w!@#$%^&\-]{8,}$`<br>`?=.*[a-z]`为正向肯定（Positive Lookahead）语法，._ 表示字符串的任意位置，._[a-z] 表示任意位置包含小写字母                                                                  | Password123!<br>Abc123!@                                                                                                | password<br>12345678                                  | Assertions                        |
+| Current                                                                                                      | `^(?<!\d)\d{1,3}(,\d{3})*(\.\d{2})?(?!\d)$`                                                                                                                                                                                        | 123,789.99<br>1.01                                                                                                      | 0123,789.99<br>123,6789.99<br>123,789.999             | Assertions                        |
+| Duplicate Check                                                                                              | `^\b(\w+)\b\s+\1\b$`                                                                                                                                                                                                               | kitty kitty                                                                                                             | kitty                                                 | Groups                            |
+| Multiple Checks                                                                                              | `^\b(\w+)\b(?:\s+\1\b)+$`                                                                                                                                                                                                          | kitty kitty kitty kitty                                                                                                 | kitty                                                 |                                   |
+| Extract HTML Tag’s Content                                                                                   | `(?<=<h1>).*?(?=<\/h1>)`                                                                                                                                                                                                           | `<h1>Hello World</h1>`                                                                                                  | `<p>Hello World</p>`                                  |                                   |
+| Extract Comments                                                                                             | `(?<=\/\/).*`                                                                                                                                                                                                                      | // I’m comment                                                                                                          | I’m comment                                           |                                   |
+| **24-hour clock**                                                                                            | <code>(?:0?\d&#124;1\d&#124;2[0-3]):[0-5]\d</code>                                                                                                                                                                                 | 00:00<br>23:59                                                                                                          | 24:00                                                 |                                   |
+| **12-hour clock**                                                                                            | <code>/^(?:0?\d&#124;1[0-2]):[0-5]\d[ap]m$/gm</code>                                                                                                                                                                               | 12:00am<br>12:00pm<br>11:59am                                                                                           | 13:00am                                               |                                   |
 
-| Password
-| `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w!@#$%^&\-]{8,}$` | Password123!
-Abc123!@ | password
-12345678 | Assertions |
-| Current | `^(?<!\d)\d{1,3}(,\d{3})*(\.\d{2})?(?!\d)$` | 123,789.99
-1.01 | 0123,789.99
-123,6789.99
-123,789.999 | Assertions |
-| Duplicate Check | `^\b(\w+)\b\s+\1\b$` | kitty kitty | kitty | Groups |
-| Multiple Checks | `^\b(\w+)\b(?:\s+\1\b)+$` | kitty kitty kitty kitty | kitty | |
-| Extract HTML Tag’s Content | `(?<=<h1>).*?(?=<\/h1>)` | <h1>Hello World</h1> | <p>Hello World</p> | |
-| Extract Comments | `(?<=\/\/).*` | // I’m comment | I’m comment | |
-| **24-hour clock** | `(?:0?\d|1\d|2[0-3]):[0-5]\d` | 00:00
-23:59 | 24:00 | |
-| **12-hour clock** | `/^(?:0?\d|1[0-2]):[0-5]\d[ap]m$/gm` | 12:00am
-12:00pm
-11:59am | 13:00am | |
+## 支持正则表达式的 Linux 命令
 
-# **Linux commands with regex support**
+| 命令                                          | 描述                                                                                                                                                                                        |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `grep` <br> (global regular expression print) | 全局文本搜索 `grep "pattern" filename`<br>`-E` 表使用扩展正则表达式<br>`-P` 表使用Perl兼容正则表达式（PCRE）<br>`-i` 忽略大小写<br>`-o` 仅输出匹配的部分<br>`-v` 反向匹配（显示不匹配的行） |
+| `sed`                                         | 替换、删除、筛选                                                                                                                                                                            |
+| `awk`                                         | 高级文本处理                                                                                                                                                                                |
+| `find`                                        | 按文件名匹配                                                                                                                                                                                |
+| `egrep`                                       | 相当于 grep -E                                                                                                                                                                              |
 
-| Commands | **Descriptions** |
-| -------- | ---------------- |
+## DFA & NFA
 
-| `grep`
-(global regular expression print) | 全局文本搜索 `grep "pattern" filename`
-`-E` 表使用扩展正则表达式
-`-P` 表使用Perl兼容正则表达式（PCRE）
-`-i` 忽略大小写
-`-o` 仅输出匹配的部分
-`-v` 反向匹配（显示不匹配的行） |
-| `sed` | 替换、删除、筛选 |
-| `awk` | 高级文本处理 |
-| `find` | 按文件名匹配 |
-| `egrep` | 相当于 grep -E |
-
-# DFA & NFA
-
-|                                                                                    | **DFA（Deterministic Finite Automaton，确定性有限自动机）** | **NFA（Nondeterministic Finite Automaton，非确定性有限自动机）** |
-| ---------------------------------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
-| **回溯、捕获组、零宽断言、反向引用**                                               | ✗                                                           | ✓                                                                |
-| **时间复杂度**                                                                     | $O(n)$ （**一条道走到黑**）                                 | 可能为 $O(2^n)$ （**穷尽所有可能**）                             |
-| https://blog.cloudflare.com/zh-cn/details-of-the-cloudflare-outage-on-july-2-2019/ |
-| **支持的编程语言**                                                                 | Golang                                                      | PCRE、JavaScript、Python、Java、.NET、sed、awk 等                |
-| **内部实现**                                                                       | 状态机（每个输入字符在当前状态下只有唯一的下一个状态）      | 状态图（在某个状态下，相同输入可能有多个可能的下一个状态）       |
-| **适用场景**                                                                       | - 高效处理大文本，无需回溯                                  |
-
-- 词法分析（如编译器、垃圾右键过滤）
-- 匹配时间可预测 | - 需要复杂匹配（捕获组、环视、反向引用） |
+|                                      | **DFA（Deterministic Finite Automaton，确定性有限自动机）**                            | **NFA（Nondeterministic Finite Automaton，非确定性有限自动机）**                                                           |
+| ------------------------------------ | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **回溯、捕获组、零宽断言、反向引用** | ✗                                                                                      | ✓                                                                                                                          |
+| **时间复杂度**                       | $O(n)$ （**一条道走到黑**）                                                            | 可能为 $O(2^n)$ （**穷尽所有可能**）<br>https://blog.cloudflare.com/zh-cn/details-of-the-cloudflare-outage-on-july-2-2019/ |
+| **支持的编程语言**                   | Golang                                                                                 | PCRE、JavaScript、Python、Java、.NET、sed、awk 等                                                                          |
+| **内部实现**                         | 状态机（每个输入字符在当前状态下只有唯一的下一个状态）                                 | 状态图（在某个状态下，相同输入可能有多个可能的下一个状态）                                                                 |
+| **适用场景**                         | - 高效处理大文本，无需回溯<br>- 词法分析（如编译器、垃圾右键过滤）<br>- 匹配时间可预测 | - 需要复杂匹配（捕获组、环视、反向引用）                                                                                   |
 
 搜索时（如grep）使用DFA与NFA结合：尽可能使用DFA，只有在使用反向引用时再切换到NFA。
 
-# Backtracking
+## Backtracking
 
-![**Successful match of ".*"**](%E3%80%8A%E7%B2%BE%E9%80%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8B%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89/image%201.png)
+![**Successful match of ".*"**](imgs/regex-match-success-dot-star.png)
 
 **Successful match of ".\*"**
 
-![**Failing attempt to match ".*"!**](%E3%80%8A%E7%B2%BE%E9%80%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8B%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89/image%202.png)
+![**Failing attempt to match ".*"!**](imgs/regex-match-fail-dot-star.png)
 
 **Failing attempt to match ".\*"!**
 
-![**Failing attempt to match "[^"]*"!**](%E3%80%8A%E7%B2%BE%E9%80%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8B%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89/image%203.png)
+![**Failing attempt to match "[^"]*"!**](imgs/regex-match-fail-negated-quote.png)
 
 **Failing attempt to match "[^"]\*"!**
