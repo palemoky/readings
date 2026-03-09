@@ -22,46 +22,28 @@
 
 ## Basic
 
-![Regex元字符图解](imgs/regex-metacharacters-diagram.png)
+<figure align="center">
+    <img src="imgs/regex-metacharacters-diagram.png" alt="Regex元字符图解" width="60%" />
+</figure>
 
-| 元字符   | 含义                       |
-| -------- | -------------------------- |
-| `.`      | 除换行符外的任意字符       |
-| `\w`     | 字母、数字、下划线         |
-| `\W`     | 除字母、数字、下划线的字符 |
-| `\s`     | 任意空白字符               |
-| `\S`     | 除空白字符                 |
-| `\d`     | 数字                       |
-| `\D`     | 除数字                     |
-| `[abc]`  | 字符集                     |
-| `[^abc]` | 否定字符集                 |
-| `[a-z]`  | 连续范围                   |
+### 元字符与优先级
 
-| 优先级 | 元字符                                 |
-| ------ | -------------------------------------- |
-| Top    | `\`                                    |
-| High   | `()`, `(?:)`, `(?=)`, `[]`             |
-| Normal | `*`, `+`, `?`, `{n}`, `{n,}`, `{n, m}` |
-| Low    | `^`, `$`                               |
-| Bottom | <code>&#124;</code>                    |
+| 字符与集合         | 含义                            | 数量限定与排布              | 含义说明                                                        |
+| :----------------- | :------------------------------ | :-------------------------- | :-------------------------------------------------------------- |
+| `.`                | 除换行符外的任意字符            | `*` (greedy) / `+` (greedy) | ≥ 0 次 / ≥ 1 次                                                 |
+| `\w` / `\W`        | 字母、数字、下划线 / 非该类字符 | `?` (lazy)                  | 0 或 1 次                                                       |
+| `\s` / `\S`        | 任意空白字符 / 非空白字符       | `{n}` / `{n,}` / `{n,m}`    | n 次 / ≥ n 次 / n ~ m 次                                        |
+| `\d` / `\D`        | 数字 / 非数字字符               | `(?=exp)` / `(?!exp)`       | **正向**肯定 / 否定预查 (Lookahead)                             |
+| `[abc]` / `[^abc]` | 字符集 / 否定字符集             | `(?<=exp)` / `(?<!exp)`     | **反向**肯定 / 否定预查 (Lookbehind)                            |
+| `[a-z]`            | 连续范围                        | **匹配优先级** (高 ➔ 低)    | `\` ➔ `()`, `[]` ➔ `*, +, ?, {}` ➔ `^, $` ➔ <code>&#124;</code> |
 
-| 元字符       | 数量限定 |
-| ------------ | -------- |
-| `*` (greedy) | ≥ 0      |
-| `?` (lazy)   | 0/1      |
-| `+` (greedy) | ≥ 1      |
-| `{n}`        | n        |
-| `{n,}`       | ≥ n      |
-| `{n,m}`      | n ~ m    |
-
-| 零宽断言/Lookaround | Lookbehind                 | Lookahead                 |
-| ------------------- | -------------------------- | ------------------------- |
-| Positive            | `(?<=exp)`<br>反向肯定预查 | `(?=exp)`<br>正向肯定预查 |
-| Negative            | `(?<!exp)`<br>反向否定预查 | `(?!exp)`<br>正向否定预查 |
+### 零宽断言
 
 正向预查（Lookahead）和反向预查（Lookbehind）分别表示向前和向后探查匹配，**使用临时指针完成探查**。
 
-**零宽断言不消耗字符**，这也就是零宽的含义。**通常用于根据字符串中其他部分的内容来匹配文本，但无需将那些内容包含在匹配结果中**。比如密码强度验证、货币格式校验、Email格式校验、HTML标签内容提取、注释提取等。
+**零宽断言（Lookaround，包括 Lookahead 和 Lookbehind）不消耗字符**，这也就是零宽的含义。**通常用于根据字符串中其他部分的内容来匹配文本，但无需将那些内容包含在匹配结果中**。比如密码强度验证、货币格式校验、Email格式校验、HTML标签内容提取、注释提取等。
+
+### 捕获组与引用
 
 | 捕获组与引用                                      | 含义                                                            |
 | ------------------------------------------------- | --------------------------------------------------------------- |
@@ -90,6 +72,8 @@
         # 查找尖括号括起来的内容
 )       # 后缀结束
 ```
+
+### 锚点与修饰符
 
 | 锚点 | 含义             |
 | ---- | ---------------- |
@@ -157,7 +141,7 @@ Line   <- Matched
 | Email                                                                                                        | `^[\w.-]+@\w+(?:\.\w+)+$`                                                                                                                                                                                                          | [test@example.com](mailto:test@example.com)，user_123@domain.co.uk                                                      | plainaddress，@missinglocalpart.com，user@domain..com | Assertions <br>@后可能有多个.后缀 |
 | URL                                                                                                          | `http[s]?:\/{2}[w.]*[a-z]+\.[a-z]+[\/\?=\w]+`                                                                                                                                                                                      | [http://example.com](http://example.com/)，[https://www.example.com/path?query=1](https://www.example.com/path?query=1) | htt://example.com，http://.com                        |                                   |
 | IPv4                                                                                                         | Solution1: <code>^(25[0-5]&#124;2[0-4]\d&#124;[01]?\d\d?)(\.(25[0-5]&#124;2[0-4]\d&#124;[01]?\d\d?)){3}$</code><br>Solution2: <code>^((2[0-4]\d&#124;25[0-5]&#124;[01]?\d\d?)\.){3}(2[0-4]\d&#124;25[0-5]&#124;[01]?\d\d?)$</code> | 192.168.0.1，255.255.255.255，<br>0.0.0.0                                                                               | 256.256.256.256，192.168.0.999                        | 拆分为0~199、200~249、250~255处理 |
-| Password <br> ①至少有1位大写字母、1位小写字母、1位数字；<br>②允许包含!@#$%等特殊字符；<br>③密码长度至少为8位 | `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w!@#$%^&\-]{8,}$`<br>`?=.*[a-z]`为正向肯定（Positive Lookahead）语法，._ 表示字符串的任意位置，._[a-z] 表示任意位置包含小写字母                                                                  | Password123!<br>Abc123!@                                                                                                | password<br>12345678                                  | Assertions                        |
+| Password <br> ①至少有1位大写字母、1位小写字母、1位数字；<br>②允许包含!@#$%等特殊字符；<br>③密码长度至少为8位 | `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w!@#$%^&\-]{8,}$`<br>`?=.*[a-z]`为正向肯定（Positive Lookahead）语法，`._` 表示字符串的任意位置，`._[a-z]` 表示任意位置包含小写字母                                                              | Password123!<br>Abc123!@                                                                                                | password<br>12345678                                  | Assertions                        |
 | Current                                                                                                      | `^(?<!\d)\d{1,3}(,\d{3})*(\.\d{2})?(?!\d)$`                                                                                                                                                                                        | 123,789.99<br>1.01                                                                                                      | 0123,789.99<br>123,6789.99<br>123,789.999             | Assertions                        |
 | Duplicate Check                                                                                              | `^\b(\w+)\b\s+\1\b$`                                                                                                                                                                                                               | kitty kitty                                                                                                             | kitty                                                 | Groups                            |
 | Multiple Checks                                                                                              | `^\b(\w+)\b(?:\s+\1\b)+$`                                                                                                                                                                                                          | kitty kitty kitty kitty                                                                                                 | kitty                                                 |                                   |
@@ -190,14 +174,21 @@ Line   <- Matched
 
 ## Backtracking
 
-![**Successful match of ".*"**](imgs/regex-match-success-dot-star.png)
-
-**Successful match of ".\*"**
-
-![**Failing attempt to match ".*"!**](imgs/regex-match-fail-dot-star.png)
-
-**Failing attempt to match ".\*"!**
-
-![**Failing attempt to match "[^"]*"!**](imgs/regex-match-fail-negated-quote.png)
-
-**Failing attempt to match "[^"]\*"!**
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"  style="vertical-align: bottom;">
+        <img src="imgs/regex-match-success-dot-star.png" alt="Successful match of ".*""  /><br />
+        <br /><sub class="img-caption">Successful match of ".*"</sub><br />
+      </td>
+      <td align="center" style="vertical-align: bottom;">
+        <img src="imgs/regex-match-fail-dot-star.png" alt="Failing attempt to match ".*"!"  /><br />
+        <sub class="img-caption">Failing attempt to match ".*"!</sub>
+      </td>
+      <td align="center" style="vertical-align: bottom;">
+        <img src="imgs/regex-match-fail-negated-quote.png" alt="Failing attempt to match "[^\"]*"!"  /><br />
+        <sub class="img-caption">Failing attempt to match "[^\"]*"!</sub>
+      </td>
+    </tr>
+  </table>
+</div>
