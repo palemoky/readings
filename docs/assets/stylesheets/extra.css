@@ -61,6 +61,8 @@ figcaption {
 /* Image caption styles for table cells (where figure tags are not suitable) */
 .img-caption {
   font-size: 14px;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.5em;
 }
 
 /* === Table Enhancements === */
