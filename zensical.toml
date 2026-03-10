@@ -90,6 +90,9 @@ palette = [
 icon.repo = "fontawesome/brands/github"
 icon.edit = "lucide/file-edit"
 
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
 [project.extra]
 generator = false
 social = [
