@@ -224,16 +224,18 @@ Redis 设计内部编码与外部结构有两个好处 ：
 
 可以通过`object encoding key`命令查询内部编码。
 
+---
+
 <div align="center">
   <table>
     <tr>
       <td align="center" style="vertical-align: middle;">
-        ![跳表（Skiplist）结构图](imgs/skiplist-diagram.png){ width=50% }
+        <img src="imgs/skiplist-diagram.png" alt="skiplist" />
         <sub>跳表（Skiplist）结构图</sub>
       </td>
       <td align="center" style="vertical-align: middle;">
         <a href="https://www.youtube.com/watch?v=m6m0pnsOzN4">
-          ![跳表讲解](imgs/skiplist-video-thumbnail.png){ width=50% }
+          <img src="imgs/skiplist-video-thumbnail.png" alt="skiplist" />
           <sub>视频：跳表讲解</sub>
         </a>
       </td>
