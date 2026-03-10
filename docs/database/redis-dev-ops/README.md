@@ -224,7 +224,7 @@ Redis 设计内部编码与外部结构有两个好处 ：
 
 可以通过`object encoding key`命令查询内部编码。
 
----
+### Skiplist
 
 <div align="center">
   <table>
