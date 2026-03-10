@@ -222,14 +222,24 @@ Redis 设计内部编码与外部结构有两个好处 ：
 1. 改进内部编码而对外部数据结构和命令没有影响
 2. 多种内部编码实现可以在不同场景下发挥各自的优势，如 ziplist 比较节省内存，但在列表元素较多的情况下，性能会有所下降，此时 Redis 会根据配置选项将列表类型的内部实现转换为 linkedlist。
 
-[跳表（skiplist）讲解](https://www.youtube.com/watch?v=m6m0pnsOzN4)
-
-<figure align="center" markdown="span">
-  ![跳表（skiplist）结构图](imgs/skiplist-diagram.png){ width=60% }
-	<figcaption>跳表（skiplist）结构图</figcaption>
-</figure>
-
 可以通过`object encoding key`命令查询内部编码。
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" style="vertical-align: middle;">
+        ![跳表（Skiplist）结构图](imgs/skiplist-diagram.png){ width=50% }
+        <sub>跳表（Skiplist）结构图</sub>
+      </td>
+      <td align="center" style="vertical-align: middle;">
+        <a href="https://www.youtube.com/watch?v=m6m0pnsOzN4">
+          ![跳表讲解](imgs/skiplist-video-thumbnail.png){ width=50% }
+          <sub>视频：跳表讲解</sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## 第 3 章 小功能大用处
 
