@@ -3,7 +3,7 @@ site_name = "读书笔记"
 site_description = "书籍是与大师对话的最好方式"
 site_author = "Palemoky"
 site_url = "https://readings.palemoky.com"
-repo_url = "https://github.com/palemoky"
+repo_url = "https://github.com/palemoky/readings"
 repo_name = "palemoky"
 copyright = "Copyright © 2026 Palemoky"
 extra_javascript = [
@@ -90,11 +90,40 @@ palette = [
 icon.repo = "fontawesome/brands/github"
 icon.edit = "lucide/file-edit"
 
-[project.markdown_extensions.pymdownx.arithmatex]
-generic = true
+[project.markdown_extensions]
+# Basic Extensions
+attr_list = {}
+md_in_html = {}
+admonition = {}
+footnotes = {}
+abbr = {}
+def_list = {}
+toc = { permalink = true }
+
+# PyMdown Extensions (Recommended)
+pymdownx.arithmatex = { generic = true }
+pymdownx.betterem = { smart_enable = "all" }
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji = { emoji_generator = "zensical.extensions.emoji.to_svg", emoji_index = "zensical.extensions.emoji.twemoji" }
+pymdownx.highlight = {}
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+pymdownx.superfences = {}
+pymdownx.tabbed = { alternate_style = true }
+pymdownx.tasklist = { custom_checkbox = true }
+pymdownx.tilde = {}
+pymdownx.magiclink = {}
+
+# Specific for Zensical Image Captions
+pymdownx.blocks.caption = {}
 
 [project.extra]
 generator = false
 social = [
   { icon = "fontawesome/brands/github", link = "https://github.com/palemoky" },
+  { icon = "fontawesome/solid/brain", link = "https://algo.palemoky.com" }
+  { icon = "fontawesome/solid/feather-pointed", link = "https://blog.palemoky.com" }
 ]
