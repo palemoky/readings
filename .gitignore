@@ -4,6 +4,8 @@ main.py
 uv.lock
 pyproject.toml 
 .python-version
+.venv
+.cache
 
 # macOS
 .DS_Store
