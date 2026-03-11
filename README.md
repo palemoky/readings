@@ -4,9 +4,8 @@
 
 这里是我的数字花园和阅读沉淀。不只是摘抄原文，更多的是提炼核心概念、记录实践思考以及构建个人的知识体系。
 
-本地启动预览：
+## 本地启动预览
 
 ```bash
-uv sync
-uv run zensical serve
+uvx zensical serve
 ```

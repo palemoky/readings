@@ -1,5 +1,9 @@
 # MkDocs / Zensical
 site/
+main.py
+uv.lock
+pyproject.toml 
+.python-version
 
 # macOS
 .DS_Store
