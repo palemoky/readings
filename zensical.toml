@@ -102,7 +102,7 @@ toc = { permalink = true }
 
 # PyMdown Extensions (Recommended)
 pymdownx.arithmatex = { generic = true }
-pymdownx.betterem = { smart_enable = "all" }
+pymdownx.betterem = { smart_enable = "none" }
 pymdownx.caret = {}
 pymdownx.details = {}
 pymdownx.emoji = { emoji_generator = "zensical.extensions.emoji.to_svg", emoji_index = "zensical.extensions.emoji.twemoji" }
