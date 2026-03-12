@@ -83,42 +83,39 @@ features = [
   "toc.follow",
 ]
 
+icon = { repo = "fontawesome/brands/github", edit = "lucide/file-edit" }
 palette = [
   { scheme = "default", toggle.icon = "lucide/sun", toggle.name = "Switch to dark mode" },
   { scheme = "slate", toggle.icon = "lucide/moon", toggle.name = "Switch to light mode" },
 ]
-icon.repo = "fontawesome/brands/github"
-icon.edit = "lucide/file-edit"
 
 [project.markdown_extensions]
-# Basic Extensions
 attr_list = {}
 md_in_html = {}
 admonition = {}
 footnotes = {}
 abbr = {}
 def_list = {}
-toc = { permalink = true }
+toc.permalink = true
+toc.slugify = { object = "pymdownx.slugs.slugify", kwds = { case = "lower" } }
 
-# PyMdown Extensions (Recommended)
-pymdownx.arithmatex = { generic = true }
-pymdownx.betterem = { smart_enable = "none" }
-pymdownx.caret = {}
-pymdownx.details = {}
-pymdownx.emoji = { emoji_generator = "zensical.extensions.emoji.to_svg", emoji_index = "zensical.extensions.emoji.twemoji" }
-pymdownx.highlight = {}
-pymdownx.inlinehilite = {}
-pymdownx.keys = {}
-pymdownx.mark = {}
-pymdownx.smartsymbols = {}
-pymdownx.superfences = {}
-pymdownx.tabbed = { alternate_style = true }
-pymdownx.tasklist = { custom_checkbox = true }
-pymdownx.tilde = {}
-pymdownx.magiclink = {}
-
-# Specific for Zensical Image Captions
-pymdownx.blocks.caption = {}
+[project.markdown_extensions.pymdownx]
+arithmatex = { generic = true }
+betterem = { smart_enable = "none" }
+caret = {}
+details = {}
+emoji = { emoji_generator = "zensical.extensions.emoji.to_svg", emoji_index = "zensical.extensions.emoji.twemoji" }
+highlight = {}
+inlinehilite = {}
+keys = {}
+mark = {}
+smartsymbols = {}
+superfences = {}
+tabbed = { alternate_style = true }
+tasklist = { custom_checkbox = true }
+tilde = {}
+magiclink = {}
+blocks.caption = {}
 
 [project.extra]
 generator = false
