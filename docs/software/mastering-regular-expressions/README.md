@@ -175,21 +175,17 @@ Line   <- Matched
 
 ## Backtracking
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"  style="vertical-align: bottom;">
-        <img src="imgs/regex-match-success-dot-star.png" alt="Successful match of ".*""  /><br />
-        <br /><sub class="img-caption">Successful match of ".*"</sub><br />
-      </td>
-      <td align="center" style="vertical-align: bottom;">
-        <img src="imgs/regex-match-fail-dot-star.png" alt="Failing attempt to match ".*"!"  /><br />
-        <sub class="img-caption">Failing attempt to match ".*"!</sub>
-      </td>
-      <td align="center" style="vertical-align: bottom;">
-        <img src="imgs/regex-match-fail-negated-quote.png" alt="Failing attempt to match "[^\"]*"!"  /><br />
-        <sub class="img-caption">Failing attempt to match "[^\"]*"!</sub>
-      </td>
-    </tr>
-  </table>
+<div class="grid cards" markdown>
+- <figure>
+      ![成功匹配 ".*"](imgs/regex-match-success-dot-star.png)
+      <figcaption>成功匹配 ".*"</figcaption>
+  </figure>
+- <figure>
+      ![失败匹配 ".*"](imgs/regex-match-fail-dot-star.png)
+      <figcaption>失败匹配 ".*"</figcaption>
+  </figure>
+- <figure>
+      ![失败匹配 "[^\"]*"](imgs/regex-match-fail-negated-quote.png)
+      <figcaption>失败匹配 "[^\"]*"</figcaption>
+  </figure>
 </div>
