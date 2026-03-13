@@ -1,156 +1,124 @@
-/* Custom styles for MkDocs - Performance optimizations and UI enhancements */
+/* ==========================================================================
+   1. 性能优化 (Performance & Critical CSS)
+   ========================================================================== */
 
-/* === Performance Optimizations === */
-
-/* Font loading optimization */
+/* 字体加载优化：使用 swap 避免不可见文本 */
 @font-face {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-display: swap; /* Display text immediately, swap font when loaded */
+  font-display: swap;
   src: local("Roboto"), local("Roboto-Regular");
 }
 
-/* Critical CSS for reducing first paint blocking */
+/* 关键渲染：设置备用字体集 */
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Lazy loading placeholder animation */
+/* 硬件加速：优化滚动和头部渲染 */
+.md-header { will-change: transform; }
+.md-content { -webkit-overflow-scrolling: touch; }
+
+/* 懒加载占位动画 */
 img[loading="lazy"] {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+  animation: shimmer 1.5s infinite;
 }
 
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-/* Reduce repaints by using transform instead of top/left */
-.md-header {
-  will-change: transform;
-}
+/* ==========================================================================
+   2. 核心排版：Figure & Image Captions
+   ========================================================================== */
 
-/* Smooth scrolling on touch devices */
-.md-content {
-  -webkit-overflow-scrolling: touch;
-}
-
-/* === UI Enhancements === */
-
-/* Semantic figure and figcaption styles */
-figure {
-  margin: 1.5em 0;
+/* 通用 Figure 结构 */
+.md-typeset figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em auto;
+  padding: 0;
+  width: fit-content;
   text-align: center;
 }
 
-figcaption {
-  font-size: 14px;
-  color: var(--md-default-fg-color--light);
-  margin-top: 0.5em;
+
+.md-typeset figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-h2, h3, h4, h5, h6 {
-  clear: both;
+.md-typeset figcaption {
+    margin: 0.4em auto;
+    line-height: 1.4;
+    color: var(--md-default-fg-color--light);
 }
 
+/* 移除 Markdown 渲染带来的干扰节点 */
+.md-typeset figure > p { margin: 0; }
+.md-typeset figure br { display: none; }
 
-/* Image caption styles for table cells (where figure tags are not suitable) */
-.img-caption {
-  font-size: 14px;
-  font-style: italic;
-  color: var(--md-default-fg-color--light);
-  margin-top: 0.5em;
+/* ==========================================================================
+   3. 增强组件：Grid Cards (卡片布局)
+   ========================================================================== */
+
+/* 1. 强制让 li 成为 Flex 容器，并撑开高度 */
+.grid.cards ul li {
+    display: flex !important;
+    flex-direction: column;
+    padding: 16px; 
+    height: 100%;            
 }
 
-/* === Table Enhancements === */
-
-/* Vertically center content in table cells with rowspan */
-/* Vertically center content in table cells with rowspan */
-.md-typeset table td[rowspan],
-.md-typeset table th[rowspan] {
-  vertical-align: middle !important;
+/* 2. 让 figure 撑满 li 的剩余空间 */
+.md-typeset .grid.cards figure {
+    display: flex;
+    flex-direction: column;
+    flex: 1;                  /* 核心：占据 li 的所有高度 */
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-/* === Wide Screen Mode === */
-[data-wide-screen="true"] .md-sidebar {
-  display: none !important;
+/* 3. 图片容器：通过 flex-grow 和 margin 实现垂直居中 */
+.md-typeset .grid.cards figure img {
+    flex: 1;                  /* 占据上方所有可用空间 */
+    object-fit: contain;      /* 保持比例 */
+    width: 100%;
+    margin-top: auto;         /* 配合下方 margin 实现垂直对齐 */
+    margin-bottom: auto;
+    display: block;
 }
 
-[data-wide-screen="true"] .md-grid {
-  max-width: 80% !important;
-  margin: 0 auto !important;
+/* 4. 说明文字：推到底部并清除底部间距 */
+.md-typeset .grid.cards figure figcaption {
+    margin-top: auto;         /* 核心：将自己推到容器最底部 */
+    padding-top: 15px;        /* 与上方图片区域保持固定间距 */
+    margin-bottom: 0;         /* 移除底部边距，让卡片整洁 */
+    flex-shrink: 0;           /* 防止文字被压缩 */
+    text-align: center;
 }
 
-[data-wide-screen="true"] .md-content {
-  margin: 0 !important;
+/* 如果 li 下面还有除了 figure 之外的其他元素（如 .card-footer） */
+.grid.cards ul li > :last-child {
+    margin-top: auto;
 }
 
-.width-toggle-btn {
-  cursor: pointer;
-  position: relative;
-}
+/* ==========================================================================
+   4. UI 特效与交互 (Code Blocks & Tooltips)
+   ========================================================================== */
 
-.width-toggle-btn svg,
-.width-toggle-btn img {
-  color: var(--md-default-fg-color);
-}
-
-/* Dark mode: use pure white for icon to match other header icons */
-[data-md-color-scheme="slate"] .width-toggle-btn svg,
-[data-md-color-scheme="slate"] .width-toggle-btn img {
-  color: #fff;
-}
-
-/* Custom tooltip for immediate display with bold text */
-.width-toggle-btn::after {
-  content: attr(aria-label);
+/* 代码块语言标签 */
+div[class*="language-"].highlight { position: relative; }
+.md-typeset div.highlight[class*="language-"]::after {
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 8px;
-  padding: 6px 12px;
-  background-color: var(--md-default-bg-color);
-  color: var(--md-default-fg-color);
-  border: 1px solid var(--md-default-fg-color--lighter);
-  border-radius: 4px;
-  font-family: Roboto, -apple-system, "system-ui", "Helvetica, Arial", "sans-serif";
-  font-size: 13.33px;
-  font-weight: 400;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease-in-out;
-  z-index: 9999;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.width-toggle-btn:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* === Code Block Enhancements === */
-
-/* Target the outer container with BOTH language-xxx AND highlight classes */
-div[class*="language-"].highlight {
-  position: relative;
-}
-
-/* Language label using ::after pseudo-element */
-div[class*="language-"].highlight::after {
-  position: absolute;
-  right: 2.8em; /* Offset to avoid overlap with copy button */
+  right: 2.8em;
   top: 0.6em;
   font-size: 0.65rem;
   font-weight: 500;
@@ -160,20 +128,59 @@ div[class*="language-"].highlight::after {
   z-index: 2;
 }
 
-/* Language-specific labels */
-div.language-go.highlight::after { content: "Go"; }
-div.language-python.highlight::after { content: "Python"; }
-div.language-java.highlight::after { content: "Java"; }
-div.language-rust.highlight::after { content: "Rust"; }
-div.language-cpp.highlight::after { content: "C++"; }
-div.language-c.highlight::after { content: "C"; }
-div.language-javascript.highlight::after { content: "JavaScript"; }
-div.language-typescript.highlight::after { content: "TypeScript"; }
-div.language-bash.highlight::after { content: "Bash"; }
-div.language-shell.highlight::after { content: "Shell"; }
-div.language-sql.highlight::after { content: "SQL"; }
-div.language-yaml.highlight::after { content: "YAML"; }
-div.language-json.highlight::after { content: "JSON"; }
-div.language-markdown.highlight::after { content: "Markdown"; }
-div.language-html.highlight::after { content: "HTML"; }
-div.language-css.highlight::after { content: "CSS"; }
+/* 常用语言映射 */
+.language-go::after { content: "Go"; }
+.language-python::after { content: "Python"; }
+.language-java::after { content: "Java"; }
+.language-rust::after { content: "Rust"; }
+.language-cpp::after { content: "C++"; }
+.language-javascript::after { content: "JS"; }
+.language-typescript::after { content: "TS"; }
+.language-bash::after, .language-shell::after { content: "Shell"; }
+.language-yaml::after, .language-json::after { content: "Data"; }
+
+/* 自定义宽度切换按钮 & Tooltip */
+.width-toggle-btn { cursor: pointer; position: relative; }
+.width-toggle-btn svg { color: var(--md-default-fg-color); }
+[data-md-color-scheme="slate"] .width-toggle-btn svg { color: #fff; }
+
+.width-toggle-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.width-toggle-btn:hover::after { opacity: 1; visibility: visible; }
+
+/* ==========================================================================
+   5. 布局增强 (Table & Wide Screen)
+   ========================================================================== */
+
+/* 表格跨行内容居中 */
+.md-typeset table :is(td, th)[rowspan] {
+  vertical-align: middle !important;
+}
+
+/* 宽屏模式切换逻辑 */
+[data-wide-screen="true"] .md-sidebar { display: none !important; }
+[data-wide-screen="true"] .md-grid {
+  max-width: 85% !important; /* 稍微调大一点提升空间利用率 */
+  margin: 0 auto !important;
+}
+[data-wide-screen="true"] .md-content { margin: 0 !important; }
+
+/* 清除浮动辅助 */
+h2, h3, h4, h5, h6 { clear: both; }
