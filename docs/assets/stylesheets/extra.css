@@ -47,7 +47,6 @@ img[loading="lazy"] {
   text-align: center;
 }
 
-
 .md-typeset figure img {
   display: block;
   max-width: 100%;
@@ -58,6 +57,7 @@ img[loading="lazy"] {
     margin: 0.4em auto;
     line-height: 1.4;
     color: var(--md-default-fg-color--light);
+    font-size: 14px;
 }
 
 /* 移除 Markdown 渲染带来的干扰节点 */
