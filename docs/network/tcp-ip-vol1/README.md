@@ -132,11 +132,12 @@ NAT 被用于缓解 IPv4 枯竭的问题，但 NAT 的流行严重阻碍了 IPv6
 
 NAT 需要**重写数据包的寻址信息**，以便私有地址空间的系统和Internet主机之间能够正常通信。
 
-NAT包括基本NAT和NAPT（Network Address Port Translation，网络地址端口转换）。基本NAT指挥重写IP地址，而NAPT则会重写IP和端口。
+NAT包括基本NAT和NAPT（Network Address Port Translation，网络地址端口转换）。基本NAT只会重写IP地址，而NAPT则会重写IP和端口。
 
-![在基本NAT中，只重写IP会导致不同主机相同端口在重写后的端口冲突（如23479的端口），而NAPT则可以避免此问题。](imgs/nat-vs-napt.png)
-
-在基本NAT中，只重写IP会导致不同主机相同端口在重写后的端口冲突（如23479的端口），而NAPT则可以避免此问题。
+<figure markdown>
+  ![NAT vs NAPT](imgs/nat-vs-napt.png)
+  <figcaption>在基本 NAT 中，只重写 IP 会导致不同主机相同端口在重写后发生冲突，而 NAPT 则可以避免此问题。</figcaption>
+</figure>
 
 NAT 中的映射关系将**在交换 FIN 数据包后被删除**。
 
@@ -156,7 +157,7 @@ iptables 是用 NetFilter 的网络过滤功能构建的。iptables 由 table（
     - POSTROUTING：链在数据包离开系统之前进行处理
 
 <figure markdown>
-  ![iptables 的 table 与 chain 通过组合使用实现灵活管理网络流量](imgs/iptables-table-chain.png){ width="50%" }
+  ![iptables Table & Chain](imgs/iptables-table-chain.png){ width="50%" }
   <figcaption>iptables 的 table 与 chain 通过组合使用实现灵活管理网络流量</figcaption>
 </figure>
 
