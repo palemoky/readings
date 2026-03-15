@@ -129,49 +129,49 @@ HTTP 首部字段将定义成缓存代理和非缓存代理的行为，分成 2 
 
 在 HTTP 1.1 中，除了`Connection`、`Keep-Alive`、`Proxy-Authenticate`、`Proxy-Authorization`、`Trailer`、`TE`、`Transfer-Encoding`、`Upgrade`等 8 个逐跳首部外，其余都是端对端首部。
 
-#### Connection 首部
+=== "Connection 首部"
 
-- 控制不再转发给代理的首部字段。在客户端发送请求和服务器返回响应内，使用 Connection 首部字段，可控制不再转发给代理的首部字段（即 Hop-by-hop 首部）。
-- 管理持久连接。HTTP/1.1 版本的默认连接都是持久连接。当服务器想明确断开连接时，则指定 Connection 首部字段的值为 Close。HTTP/1.1 之前的 HTTP 版本的默认连接都是非持久连接，则需要指定 Connection 首部字段的值为 Keep-Alive。
+    - 控制不再转发给代理的首部字段。在客户端发送请求和服务器返回响应内，使用 Connection 首部字段，可控制不再转发给代理的首部字段（即 Hop-by-hop 首部）。
+    - 管理持久连接。HTTP/1.1 版本的默认连接都是持久连接。当服务器想明确断开连接时，则指定 Connection 首部字段的值为 Close。HTTP/1.1 之前的 HTTP 版本的默认连接都是非持久连接，则需要指定 Connection 首部字段的值为 Keep-Alive。
 
-#### Accept 首部
+=== "Accept 首部"
 
-| 首部              | 描述             |
-| ----------------- | ---------------- |
-| `Accept`          | 可处理的媒体类型 |
-| `Accept-Charset`  | 可处理的字符集   |
-| `Accept-Encoding` | 可处理的编码方式 |
-| `Accept-Language` | 可处理的语言     |
+    | 首部              | 描述             |
+    | ----------------- | ---------------- |
+    | `Accept`          | 可处理的媒体类型 |
+    | `Accept-Charset`  | 可处理的字符集   |
+    | `Accept-Encoding` | 可处理的编码方式 |
+    | `Accept-Language` | 可处理的语言     |
 
-#### Upgrade 首部
+=== "Upgrade 首部"
 
-用于检测 HTTP 协议及其他协议是否可使用更高的版本进行通信，其参数值可以用来指定一个完全不同的通信协议。
+    用于检测 HTTP 协议及其他协议是否可使用更高的版本进行通信，其参数值可以用来指定一个完全不同的通信协议。
 
-#### Via 首部
+=== "Via 首部"
 
-Via 是为了追踪客户端与服务器之间的请求和响应报文的传输路径。报文经过代理或网关时，会先在首部字段 Via 中附加该服务器的信息，然后再进行转发。首部字段 Via 不仅用于追踪报文的转发，还可避免请求回环的发生。所以必须在经过代理时附加该首部字段内容。 Via 首部是为了追踪传输路径，所以经常会和 TRACE 方法一起使用。
+    Via 是为了追踪客户端与服务器之间的请求和响应报文的传输路径。报文经过代理或网关时，会先在首部字段 Via 中附加该服务器的信息，然后再进行转发。首部字段 Via 不仅用于追踪报文的转发，还可避免请求回环的发生。所以必须在经过代理时附加该首部字段内容。 Via 首部是为了追踪传输路径，所以经常会和 TRACE 方法一起使用。
 
-#### 条件请求首部
+=== "条件请求首部"
 
-| 首部                  | 描述                       |
-| --------------------- | -------------------------- |
-| `Expect`              |                            |
-| `If-Match`            | 若匹配则获取该资源         |
-| `If-Modified-Since`   | 若从某个时间后修改则获取   |
-| `If-None-Match`       | 若不匹配则获取             |
-| `If-Range`            | 指定范围获取               |
-| `If-Unmodified-Since` | 若从某个时间后未修改则获取 |
+    | 首部                  | 描述                       |
+    | --------------------- | -------------------------- |
+    | `Expect`              |                            |
+    | `If-Match`            | 若匹配则获取该资源         |
+    | `If-Modified-Since`   | 若从某个时间后修改则获取   |
+    | `If-None-Match`       | 若不匹配则获取             |
+    | `If-Range`            | 指定范围获取               |
+    | `If-Unmodified-Since` | 若从某个时间后未修改则获取 |
 
-#### 内容首部
+=== "内容首部"
 
-| 首部               | 描述                             |
-| ------------------ | -------------------------------- |
-| `Content-Encoding` | 主体的编码方式，如 gzip          |
-| `Content-Language` | 主体的最佳语言                   |
-| `Content-Length`   | 主体的长度或尺寸                 |
-| `Content-Location` | 资源实际位置                     |
-| `Content-Type`     | 该主体的对象类型                 |
-| `Content-Range`    | 在整个资源中此实体表示的字节范围 |
+    | 首部               | 描述                             |
+    | ------------------ | -------------------------------- |
+    | `Content-Encoding` | 主体的编码方式，如 gzip          |
+    | `Content-Language` | 主体的最佳语言                   |
+    | `Content-Length`   | 主体的长度或尺寸                 |
+    | `Content-Location` | 资源实际位置                     |
+    | `Content-Type`     | 该主体的对象类型                 |
+    | `Content-Range`    | 在整个资源中此实体表示的字节范围 |
 
 ## 第 4 章 连接管理
 
@@ -205,25 +205,25 @@ TCP 连接通过`<source ip, source port, destn ip, destn port>` 唯一定义一
 - 将多个请求进行合并，避免频繁建立连接
 - 优化 TCP，加速连接的建立
 
-### TIME_WAIT 与 CLOSE_WAIT
+### `TIME_WAIT` 与 `CLOSE_WAIT`
 
-![TCP 连接状态](imgs/tcp-connection-states.jpg)
+![TCP 连接状态](imgs/tcp-connection-states.jpg){ align=right width=50% }
 
-从上图我们可以看到，TIME_WAIT 出现在主动关闭方，CLOSE_WAIT 则出现在被动关闭方（两个通话结束的人，先挂断电话的一方进入 TIME_WAIT，另一方则进入 CLOSE_WAIT）。
+从图中我们可以看到，`TIME_WAIT` 出现在主动关闭方，`CLOSE_WAIT` 则出现在被动关闭方（两个通话结束的人，先挂断电话的一方进入 `TIME_WAIT`，另一方则进入 `CLOSE_WAIT`）。
 
-#### TIME_WAIT 产生的场景
+#### `TIME_WAIT` 产生的场景
 
-基于 TCP 的 HTTP 协议，一般由服务端主动关闭 TCP（keepalive 时间内客户端主动关闭则是客户端进入 TIME_WAIT），这样服务端就会进入 TIME_WAIT 状态。当服务端出现大量请求时，就会产生大量的 TIME_WAIT 状态。如果堆积的大量 TIME_WAIT 不及时处理，可能会造成服务端无法接收新的请求。
+基于 TCP 的 HTTP 协议，一般由服务端主动关闭 TCP（keepalive 时间内客户端主动关闭则是客户端进入 `TIME_WAIT`），这样服务端就会进入 `TIME_WAIT` 状态。当服务端出现大量请求时，就会产生大量的 `TIME_WAIT` 状态。如果堆积的大量 `TIME_WAIT` 不及时处理，可能会造成服务端无法接收新的请求。
 
-#### CLOSE_WAIT 产生的场景
+#### `CLOSE_WAIT` 产生的场景
 
-爬虫运行在 A 主机，向 B 主机采集数据，但是 A 很快就发现出现了大量的 CLOSE_WAIT 状态的连接，经检查发现这些处于 CLOSE_WAIT 状态的请求结果都是 404。这是由于，在 404 的状态下，B 主动关闭了连接，A 进入了 CLOSE_WAIT，如果 A 的程序中未能释放 HTTP 连接，则造成了 CLOSE_WAIT。
+爬虫运行在 A 主机，向 B 主机采集数据，但是 A 很快就发现出现了大量的 `CLOSE_WAIT` 状态的连接，经检查发现这些处于 `CLOSE_WAIT` 状态的请求结果都是 404。这是由于，在 404 的状态下，B 主动关闭了连接，A 进入了 `CLOSE_WAIT`，如果 A 的程序中未能释放 HTTP 连接，则造成了 `CLOSE_WAIT`。
 
-#### 为什么需要 TIME_WAIT 与 CLOSE_WAIT 呢？
+#### 为什么需要 `TIME_WAIT` 与 `CLOSE_WAIT` 呢？
 
-当一个 socket 关闭的时候，是通过两端四次握手完成的，当一端调用 close() 时，就说明本端没有数据要发送了。这好似看来在握手完成以后，socket 就都可以处于初始的 CLOSED 状态了，其实不然。原因是这样安排状态有两个问题，首先，我们没有任何机制保证最后的一个 ACK 能够正常传输，第二，网络上仍然有可能有残余的数据包（残留的数据包经 2MSL 时间丢弃），我们也必须能够正常处理。
+当一个 socket 关闭的时候，是通过两端四次握手完成的，当一端调用 close() 时，就说明本端没有数据要发送了。这好似看来在握手完成以后，socket 就都可以处于初始的 `CLOSED` 状态了，其实不然。原因是这样安排状态有两个问题，首先，我们没有任何机制保证最后的一个 ACK 能够正常传输，第二，网络上仍然有可能有残余的数据包（残留的数据包经 2MSL 时间丢弃），我们也必须能够正常处理。
 
-#### 如果已经进入 TIME_WAIT 与 CLOSE_WAIT 连接，这个连接接下来会被怎样处理呢？
+#### 如果已经进入 `TIME_WAIT` 与 `CLOSE_WAIT` 连接，这个连接接下来会被怎样处理呢？
 
 目前优化 HTTP 资源加载速度的方式有：
 
@@ -266,6 +266,7 @@ TCP 是双向的，TCP 连接的每一端都有一个输入队列和一个输出
 ## 第 5 章 Web 服务器
 
 服务器的工作流程：
+![Web 服务器工作流](imgs/web-server-workflow.jpg){ align=right width=50% }
 
 1. 建立连接 - 接受一个客户端连接，不希望建立连接则关闭
 2. 接收请求 - 从网络中读取一条 HTTP 请求报文
@@ -275,11 +276,9 @@ TCP 是双向的，TCP 连接的每一端都有一个输入队列和一个输出
 6. 发送响应 - 将响应回送给客户端
 7. 记录事务处理过程 - 将与已完成事务有关的内容记录在一个日志文件中
 
-![Web 服务器工作流](imgs/web-server-workflow.jpg)
-
 ## 第 6 章 代理
 
-### 为什么使用代理
+为什么使用代理？
 
 - 儿童过滤器
 - 文档访问控制
@@ -288,8 +287,7 @@ TCP 是双向的，TCP 连接的每一端都有一个输入队列和一个输出
 - 反向代理
 - 内容路由器
 - 转码器
-- 匿名性
-    - 匿名代理会主动从 HTTP 报文中删除身份特性，如客户端 IP，From 首部，Referer 首部，cookie，URI 回话 ID 等，从而提供高度私密性和匿名性。
+- 匿名性：匿名代理会主动从 HTTP 报文中删除身份特性，如客户端 IP，From 首部，Referer 首部，cookie，URI 回话 ID 等，从而提供高度私密性和匿名性。
 
 Via 首部字段列出了与报文途经的每个中间节点（代理或网关）有关的信息。
 
@@ -317,15 +315,17 @@ Web 隧道是通过 HTTP 的 CONNECT 方法建立起来的。
 
 盲中继可能导致 keep-alive 的挂起
 
-![盲中继 Keep-Alive 挂起](imgs/blind-relay-keepalive.jpg)
+<figure markdown>
+  ![盲中继 Keep-Alive 挂起](imgs/blind-relay-keepalive.jpg){ width=80% }
+</figure>
 
 ## 第 9 章 Web 机器人
 
 ### 爬虫的工作流
 
-爬虫从根集开始，爬取所需的大多数页面，在以下的示例中，根集只需要 A、G、S 即可抓取到所有页面。
+![爬虫根集](imgs/crawler-root-set.jpg){ align=right width=50% }
 
-![爬虫根集](imgs/crawler-root-set.jpg)
+爬虫从根集开始，爬取所需的大多数页面，在图示中，根集只需要 A、G、S 即可抓取到所有页面。
 
 爬虫在 Web 上移动时，会不停地对 HTML 页面进行解析，它要对所解析的每个页面上的 URL 链接进行分析，并将这些链接添加到需要爬行的页面列表中去。随着爬虫的前进，当期发现需要探查的新链接时，这个列表常常会迅速地扩张。爬虫要通过简单的 HTML 解析，将这些链接提取出来，并将相对 URL 转换为绝对形式。
 
@@ -335,9 +335,10 @@ Web 隧道是通过 HTTP 的 CONNECT 方法建立起来的。
 
 大型爬虫会采用“集群”的方式，每个爬虫分配一个特定的 URL“片”，然后配合抓取整个 Web。
 
-别名与机器人环路
-
-![URL 别名与机器人环路](imgs/url-alias-robot-loop.jpg)
+<figure markdown>
+  ![URL 别名与机器人环路](imgs/url-alias-robot-loop.jpg){ width=80% }
+  <figcaption>URL 别名与机器人环路</figcaption>
+</figure>
 
 解决循环陷阱的方法
 
@@ -411,7 +412,9 @@ WWW-Authenticate: Basic realm="Corporate Financials"
 
 RFC 2617 建议采用这个假想的随机数公式：`BASE64(time-stamp H(time-stamp ":" ETag ":" private-key))`。其中 time-stamp 是服务器产生的时间或其他不会重复的值，ETag 是与所请求实体有关的 HTTP ETag 首部的值，private-key 是只有服务器知道的数据。
 
-![摘要认证流程](imgs/digest-auth-flow.jpg)
+<figure markdown>
+  ![HTTP 认证首部](imgs/http-auth-headers.jpg){ width=80% }
+</figure>
 
 在实际应用中，我们需要考虑到服务器可以对某个资源发起多重质询。比如，如果服务器不了解客户端的能力，就可以既提供基本认证质询，又提供摘要认证质询。客户端面对多重质询时，必须以它所支持的最强的质询机制来应答。另外，如果请求的摘要不匹配，就应该记录一次登录失败。某客户端连续多次失败可能说明有攻击者正在猜测密码。
 
@@ -470,14 +473,14 @@ ECDSA 原理资料： 1. [椭圆曲线加密与哈希函数是什么？](https:/
 - 在网络上可以快速有效地传输（通过范围请求、差异编码以及其他数据压缩方法）
 - 完整到达、未被篡改（通过传输编码首部和 Content-MD5 校验和首部）
 
-### HTTP/1.1 定义了以下 10 个基本首部字段：
+HTTP/1.1 定义了以下 10 个基本首部字段：
 
-| 首部               | 说明                                                               |
-| ------------------ | ------------------------------------------------------------------ |
-| `Content-Type`     | 实体中所承载对象的类型                                             |
-| `Content-Length`   | 所传送实体主体的长度或大小                                         |
+| 首部               | 说明                                                               | 备注                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Content-Type`     | 实体中所承载对象的类型                                             | `Content-Type` 的值是标准化的 MIME 类型，都是在互联网号码分配机构（IANA）中注册的。                                                                                                                                                                                                                                                                                                                                                                          |
+| `Content-Length`   | 所传送实体主体的长度或大小                                         | Content-Length 对于持久连接是必不可少的，如果没有 `Content-Length`，HTTP 应用程序就不知道实体主体在哪里结束，下一条报文从哪里开始。                                                                                                                                                                                                                                                                                                                          |
 | `Content-Language` | 与所传送对象最相匹配的人类语言                                     |
-| `Content-Encoding` | 对象数据所做的任意变换（如压缩）                                   |
+| `Content-Encoding` | 对象数据所做的任意变换（如压缩）                                   | 常用值：<br>- gzip：采用 GNU zip 编码<br>- compress：采用 Unix 的文件压缩程序<br>- deflate：采用用 zlib 格式压缩<br>- identity：未对实体编码，无 Content-Encoding 首部时，默认此种情况。<br><br>gzip、compress、deflate 都是无损压缩算法，用于减少传输报文的大小，不会导致信息的损失。其中，gzip 通常效率最高，使用最广泛。gzip 与 deflate 的压缩算法可以阅读 [Gzip 格式和 DEFLATE 压缩算法](https://luyuhuang.github.io/2020/04/28/gzip-and-deflate.html)。 |
 | `Content-Location` | 一个备用位置，请求时可通过它获得对象                               |
 | `Content-Range`    | 如果这是部分实体，这个首部说明它是整体的哪个部分                   |
 | `Content-MD5`      | 实体主体内容的校验和                                               |
@@ -487,36 +490,17 @@ ECDSA 原理资料： 1. [椭圆曲线加密与哈希函数是什么？](https:/
 | `ETag`             | 该文档特定示例的唯一验证码。ETag 未被定义为实体首部                |
 | `Cache-Control`    | 指出该文档应该如何缓存，与 ETag 首部类似，也未被定义为正式实体首部 |
 
-#### Content-Length
-
-Content-Length 对于持久连接是必不可少的，如果没有 Content-Length，HTTP 应用程序就不知道实体主体在哪里结束，下一条报文从哪里开始。
-
-#### Content-Type
-
-Content-Type 的值是标准化的 MIME 类型，都是在互联网号码分配机构（IANA）中注册的。
-
-#### Content-Encoding 常用值
-
-| 值       | 描述                                                   |
-| -------- | ------------------------------------------------------ |
-| gzip     | 采用 GNU zip 编码                                      |
-| compress | 采用 Unix 的文件压缩程序                               |
-| deflate  | 采用用 zlib 格式压缩                                   |
-| identity | 未对实体编码，无 Content-Encoding 首部时，默认此种情况 |
-
-gzip、compress、deflate 都是无损压缩算法，用于减少传输报文的大小，不会导致信息的损失。其中，gzip 通常效率最高，使用最广泛。gzip 与 deflate 的压缩算法可以阅读[Gzip 格式和 DEFLATE 压缩算法](https://luyuhuang.github.io/2020/04/28/gzip-and-deflate.html)。
-
 #### Accept-Encoding
 
-客户端将支持的编码方式列表放在 Accept-Encoding，如果请求中没有该首部，则服务端认为客户端能够接受任何编码形式（等同于 `Accept-Encoding:\*`）。
+客户端将支持的编码方式列表放在 `Accept-Encoding`，如果请求中没有该首部，则服务端认为客户端能够接受任何编码形式（等同于 `Accept-Encoding:*`）。
 
-Accept-Encoding 字段包含用逗号分隔的支持编码的列表，如
+`Accept-Encoding` 字段包含用逗号分隔的支持编码的列表，如
 
-- Accept-Encoding: compress, gzip
-- Accept-Encoding:
-- Accept-Encoding: \*
-- Accept-Encoding: compress;q=0.5, gzip;q=1.0
-- Accept-Encoding: gzip;q=1.0, identity; q=0.5, ;q=0
+- `Accept-Encoding: compress, gzip`
+- `Accept-Encoding: ` （为空时）：等同于 `identity`，明确告知服务端**不要**进行任何压缩。
+- `Accept-Encoding: *`
+- `Accept-Encoding: compress;q=0.5, gzip;q=1.0`
+- `Accept-Encoding: gzip;q=1.0, identity; q=0.5, ;q=0`
 
 客户端可以给每种编码附带 Q (质量)值参数来说明编码的优先级。Q 值的范围从 0.0 到 1.0，0.0 说明客户端不想接受所说明的编码，1.0 则表明最希望使用的编码，缺省时则为 1.0。“\*”表示“任何其他方法”。identity 编码代号只能在 Accept-Encoding 首部中出现，客户端用它来说明相对于其他内容编码算法的优先级。
 
