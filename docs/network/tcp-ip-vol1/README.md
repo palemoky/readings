@@ -223,9 +223,7 @@ RFC0793 将最大段生存期设为 2 分钟，但通常该值位 30s、1m 或 2
 
 #### 滑动窗口
 
-@[ACK 滑动窗口与拥塞窗口](https://www.notion.so/87173f9e936a4267a39d54ea85ea3e21?pvs=21)
-
-因为 TCP 是全双工协议，因此在建立连接时需要互相交换各自的 seq 和 winsize 等信息。每个 TCP 活动连接的两段都维护一个发送窗口结构和接收窗口结构。
+因为 TCP 是全双工协议，因此在建立连接时需要互相交换各自的 seq 和 winsize 等信息。每个 TCP 活动连接的两端都维护一个发送窗口结构和接收窗口结构。
 
 <div class="grid cards" markdown>
 - <figure>
