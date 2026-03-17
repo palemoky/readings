@@ -59,6 +59,7 @@ variant = "modern"
 language = "zh"
 primary = "white"
 accent = "blue"
+custom_dir = "overrides"
 favicon = "assets/logo.png"
 logo = "assets/logo.png"
 features = [
