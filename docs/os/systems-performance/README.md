@@ -501,11 +501,15 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
 
 ## 第 11 章 云计算
 
-待阅读
+<figure markdown>
+  ![硬件虚拟化](imgs/hardware-virtualization.png){ width=80% }
+</figure>
 
-## 第 12 章 基准测试
+主要的硬件虚拟化技术有：
 
-待阅读
+- VMware ESX（2001年）：企业级 Type-1 虚拟机管理程序（裸机 Hypervisor），直接运行于物理硬件上，是 VMware vSphere 云计算产品的核心组件。
+- Xen（2003年）：起源于剑桥大学，后被 Citrix 收购。Type-1 Hypervisor，以半虚拟化为核心，同时支持硬件辅助虚拟化（HVM）运行未修改的 Windows 客户机。Amazon EC2 早期基于 Xen。
+- KVM（Kernel-based Virtual Machine）：Linux 内核内置的 Type-2 Hypervisor（以内核模块形式运行），配合用户态的 QEMU 提供完整的虚拟化能力，是目前最主流的开源虚拟化方案。Google Compute Engine、OpenStack 等大量基于 KVM。
 
 ## 总结
 
@@ -835,26 +839,48 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
 
 ### 网络
 
-=== "netstat（被ss替代）"
+=== "ss"
 
-    用于统计网络连接情况，常用参数选项如下：
+    `ss`（Socket Statistics）是 `netstat` 的现代替代品，`netstat` 通过读取 `/proc/net/tcp` 等文件获取信息，而 `ss` 则通过 netlink 内核接口获取信息具有更好的性能。`ss` 的基础参数 (`-t`, `-u`, `-l`, `-a`, `-n`, `-p`) 与 `netstat` 完全一致，但 `ss` 拥有更强大的状态过滤与条件表达式，以下是常用用法：
 
-    - `-s` 能查找大量重传的包和乱序的包
-    - `-i` 能检查接口的错误统计
-    - `-r` 列出路由表
-    - `-a` 表示所有连接
-    - `-t` 表示 TCP 连接
-    - `-u` 表示 UDP 连接
-    - `-n` 表示禁用域名解析，只显示 IP
-    - `-l` 表示仅显示 `LISTEN` 状态的连接
-    - `-p` 表示显示 PID 及进程名，可能需要`sudo`权限
-    - `-c` 表示持续输出
+    ```bash
+    ss -tulnp              # 查看所有 TCP/UDP 监听端口及对应进程，-t TCP -u UDP -l 监听  -n 不解析名称，显示数字形式信息  -p 显示进程
+    ss -tlnp | grep :80    # 找出占用 80 端口的进程
+    ss -s                  # 显示各状态的连接数量汇总（排查连接风暴很有用）
+    ss -to                 # 显示 TCP 定时器信息（keepalive / TIME_WAIT 倒计时等）
+    ss -tm                 # 显示内存使用信息（send/receive buffer）
+    ss -tp | grep pid=1234 # 用 PID 查看某进程的所有网络连接
+    ss -t state established|time-wait|close-wait|listening # 查看指定状态的连接
+    ```
+
+    按地址/端口过滤
+    ```bash
+    ss -t dst 192.168.1.1        # 过滤目标 IP
+    ss -t src 0.0.0.0:22         # 过滤源地址
+    ss -t dport = :80            # 目标端口为 80
+    ss -t sport = :443           # 源端口为 443
+    ss -t dport \> :1024         # 目标端口大于 1024
+    ```
 
     结果解释：
 
-    - `Recv-Q` 与 `Send-Q` 表示接收与发送队列，非 0 时说明有网络包堆积发生
-    - 当处于 Established 时，`Recv-Q` 表示套接字缓冲尚未被应用程序取走的字节数，`Send-Q` 表示尚未被远端主机确认的字节数
-    - 当处于 Listening 时，`Recv-Q` 表示 syn backlog 的当前值，`Send-Q`则表示最大的 syn backlog 值
+    - `Recv-Q` 与 `Send-Q` 表示接收与发送队列：
+        - 当处于 Established 时，`Recv-Q` 表示套接字缓冲尚未被应用程序取走的字节数，`Send-Q` 表示尚未被远端主机确认的字节数；二者非 0 时说明有网络包堆积
+        - 当处于 Listening 状态时：
+            - `Recv-Q` 表示全连接队列（Accept Queue）的当前长度（已完成三次握手，等待应用程序 `accept()` 的连接数）
+            - `Send-Q` 表示全连接队列的最大容量（对应 `listen()` 函数的 `backlog` 参数）；当 `Recv-Q` 达到 `Send-Q` 时，新连接将被内核丢弃
+
+    ```bash
+    $ ss -lntup
+    Netid   State    Recv-Q   Send-Q    Local Address:Port      Peer Address:Port
+    udp     UNCONN   0        0          192.168.50.4:5353           0.0.0.0:*
+    udp     UNCONN   0        0               0.0.0.0:68             0.0.0.0:*
+    tcp     ESTAB    0        0          192.168.50.4:34840      39.156.44.8:443
+    tcp     ESTAB    0        0          192.168.50.4:21064   192.168.50.174:51777
+    tcp     ESTAB    0        0          192.168.50.4:22      192.168.50.174:53060
+    ```
+
+=== "netstat（被ss替代）"
 
     ```bash
     $ sudo netstat -antup
@@ -875,53 +901,20 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
 
     图中与性能相关的指标以加粗强调
 
-    ![网络性能监控](imgs/netstat-performance-metrics.png)
+    ![网络性能监控1](imgs/netstat-performance-metrics-1.png)
 
-    ![ss 命令性能监控](imgs/ss-performance-metrics.png)
-
-=== "ss"
-
-    与 `netstat` 类似，但性能更好
-
-    ```bash
-    $ ss -lntup
-    Netid   State    Recv-Q   Send-Q    Local Address:Port      Peer Address:Port
-    udp     UNCONN   0        0          192.168.50.4:5353           0.0.0.0:*
-    udp     UNCONN   0        0               0.0.0.0:68             0.0.0.0:*
-    tcp     ESTAB    0        0          192.168.50.4:34840      39.156.44.8:443
-    tcp     ESTAB    0        0          192.168.50.4:21064   192.168.50.174:51777
-    tcp     ESTAB    0        0          192.168.50.4:22      192.168.50.174:53060
-    ```
-
-=== "ifconfig（被ip替代）"
-
-    查看当前的网络接口配置。包名为`net-tools`
-
-    - 网络接口中没有`RUNNING`时，表示网线被拔掉
-    - 当`errors`、`dropped`、`overruns`、`collisions`为非 0 值时说明网络有问题
-
-    ```bash
-    $ ifconfig
-    eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:00:02
-            inet addr:172.17.0.2  Bcast:172.17.255.255  Mask:255.255.0.0
-            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-            RX packets:6230 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:3 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:0
-            RX bytes:2231623 (2.1 MiB)  TX bytes:603 (603.0 B)
-
-    lo        Link encap:Local Loopback
-            inet addr:127.0.0.1  Mask:255.0.0.0
-            UP LOOPBACK RUNNING  MTU:65536  Metric:1
-            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000
-            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-    ```
+    ![网络性能监控2](imgs/netstat-performance-metrics-2.png)
 
 === "ip"
 
-    与`ifconfig`类似，作为`ifconfig`的替代品，查看各网卡的数据包统计信息。包名为`iproute2`
+    `ifconfig` 的现代替代品（`iproute2` 包），支持管理地址、路由、ARP 缓存等网络资源
+
+    | 旧命令       | 新命令 (iproute2)     |
+    | ------------ | --------------------- |
+    | `ifconfig`   | `ip addr` / `ip link` |
+    | `route`      | `ip route`            |
+    | `arp`        | `ip neigh`            |
+    | `netstat -i` | `ip -s link`          |
 
     ```bash
     $ ip -s link
@@ -949,6 +942,32 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
         3582       21       0       0       0       15
         TX: bytes  packets  errors  dropped carrier collsns
         3997       31       0       0       0       0
+    ```
+
+=== "ifconfig（被ip替代）"
+
+    查看当前的网络接口配置。包名为`net-tools`
+
+    - 网络接口中没有`RUNNING`时，表示网线被拔掉
+    - 当`errors`、`dropped`、`overruns`、`collisions`为非 0 值时说明网络有问题
+
+    ```bash
+    $ ifconfig
+    eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:00:02
+            inet addr:172.17.0.2  Bcast:172.17.255.255  Mask:255.255.0.0
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:6230 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:3 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:0
+            RX bytes:2231623 (2.1 MiB)  TX bytes:603 (603.0 B)
+
+    lo        Link encap:Local Loopback
+            inet addr:127.0.0.1  Mask:255.0.0.0
+            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
     ```
 
 === "tcpdump"
@@ -1262,7 +1281,7 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
     $lsof -p 11968
     ```
 
-## 附录：工具自带情况
+### 工具自带情况
 
 这些性能工具并非全部是 Linux 发行版“开箱即用”的，通常可以分为以下几类：
 
