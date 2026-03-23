@@ -18,7 +18,6 @@ nav = [
   { "计算机系统" = [
     {"计算机系统" = "os/README.md"}, 
     {"深入理解计算机系统" = "os/csapp/README.md"}, 
-    {"数据密集型应用设计" = "os/ddia/README.md"}, 
     {"操作系统导论" = "os/ostep/README.md"}, 
     {"Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
     {"性能之巅" = "os/systems-performance/README.md"}, 
