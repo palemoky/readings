@@ -34,6 +34,11 @@ nav = [
     {"高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
     {"Redis 开发与运维" = "database/redis-dev-ops/README.md"}
   ] },
+  { "分布式" = [
+    {"分布式" = "distributed/README.md"}, 
+    {"数据密集型应用设计" = "distributed/ddia/README.md"},
+    # {"Kubernetes 权威指南" = "distributed/kubernetes-the-definitive-guide/README.md"}
+  ] },
   { "软件工程" = [
     {"软件工程" = "software/README.md"},
     {"编码" = "software/code/README.md"},
