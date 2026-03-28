@@ -9,6 +9,7 @@ copyright = "Copyright © 2026 Palemoky"
 extra_javascript = [
   "assets/javascripts/mathjax.js",
   "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js",
+  "assets/javascripts/width-toggle.js",
 ]
 extra_css = [
   "assets/stylesheets/extra.css",
@@ -26,7 +27,7 @@ nav = [
     {"网络通信" = "network/README.md"}, 
     {"HTTP 权威指南" = "network/http-the-definitive-guide/README.md"}, 
     {"网络是怎样连接的" = "network/how-networks-work/README.md"}, 
-    {"TCP/IP" = "network/tcp-ip-vol1/README.md"}
+    {"TCP/IP 详解（卷1）" = "network/tcp-ip-vol1/README.md"}
   ] },
   { "数据库" = [
     {"数据库" = "database/README.md"}, 
@@ -110,7 +111,7 @@ betterem = { smart_enable = "none" }
 caret = {}
 details = {}
 emoji = { emoji_generator = "zensical.extensions.emoji.to_svg", emoji_index = "zensical.extensions.emoji.twemoji" }
-highlight = {}
+highlight.pygments_lang_class = true
 inlinehilite = {}
 keys = {}
 mark = {}

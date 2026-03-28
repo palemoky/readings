@@ -114,9 +114,13 @@ img[loading="lazy"] {
    4. UI 特效与交互 (Code Blocks & Tooltips)
    ========================================================================== */
 
-/* 代码块语言标签 */
-.md-typeset .highlight[class*="language-"] { position: relative; }
-.md-typeset .highlight[class*="language-"]::after {
+/* Target the outer container with BOTH language-xxx AND highlight classes */
+div[class*="language-"].highlight {
+  position: relative;
+}
+
+/* Language label using ::after pseudo-element */
+div[class*="language-"].highlight::after {
   position: absolute;
   right: 2.8em;
   top: 0.6em;
@@ -128,21 +132,28 @@ img[loading="lazy"] {
   z-index: 2;
 }
 
-/* 常用语言映射 */
-.md-typeset .highlight.language-go::after { content: "Go"; }
-.md-typeset .highlight.language-python::after { content: "Python"; }
-.md-typeset .highlight.language-java::after { content: "Java"; }
-.md-typeset .highlight.language-rust::after { content: "Rust"; }
-.md-typeset .highlight.language-cpp::after { content: "C++"; }
-.md-typeset .highlight.language-javascript::after { content: "JS"; }
-.md-typeset .highlight.language-typescript::after { content: "TS"; }
-.md-typeset .highlight.language-bash::after, .md-typeset .highlight.language-shell::after { content: "Shell"; }
-.md-typeset .highlight.language-yaml::after, .md-typeset .highlight.language-json::after { content: "Data"; }
+/* Language-specific labels */
+div.language-go.highlight::after { content: "Go"; }
+div.language-python.highlight::after { content: "Python"; }
+div.language-java.highlight::after { content: "Java"; }
+div.language-rust.highlight::after { content: "Rust"; }
+div.language-cpp.highlight::after { content: "C++"; }
+div.language-c.highlight::after { content: "C"; }
+div.language-javascript.highlight::after { content: "JS"; }
+div.language-typescript.highlight::after { content: "TS"; }
+div.language-bash.highlight::after { content: "Bash"; }
+div.language-shell.highlight::after { content: "Shell"; }
+div.language-sql.highlight::after { content: "SQL"; }
+div.language-yaml.highlight::after { content: "YAML"; }
+div.language-json.highlight::after { content: "JSON"; }
+div.language-markdown.highlight::after { content: "Markdown"; }
+div.language-html.highlight::after { content: "HTML"; }
+div.language-css.highlight::after { content: "CSS"; }
 
 /* 自定义宽度切换按钮 & Tooltip */
 .width-toggle-btn { cursor: pointer; position: relative; }
 .width-toggle-btn svg { color: var(--md-default-fg-color); }
-[data-md-color-scheme="slate"] .width-toggle-btn svg { color: #fff; }
+[data-md-color-scheme="slate"] .width-toggle-btn svg { color: #E2E4E9D1; }
 
 .width-toggle-btn::after {
   content: attr(aria-label);
@@ -168,6 +179,15 @@ img[loading="lazy"] {
 /* ==========================================================================
    5. 布局增强 (Table & Wide Screen)
    ========================================================================== */
+
+/* 表格单元格边框（确保 rowspan/colspan 单元格也有分隔线） */
+.md-typeset table:not([class]) {
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) :is(td, th) {
+  border: 1px solid var(--md-typeset-table-color);
+}
 
 /* 表格跨行内容居中 */
 .md-typeset table :is(td, th)[rowspan] {
