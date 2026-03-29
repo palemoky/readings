@@ -59,4 +59,10 @@ document$.subscribe(() => {
       search.parentNode.insertBefore(button, search);
     }
   }
+
+  // Auto-update copyright year parameter in footer
+  const yearEl = document.getElementById('copyright-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 });
