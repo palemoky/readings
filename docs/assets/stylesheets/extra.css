@@ -189,6 +189,10 @@ div.language-css.highlight::after { content: "CSS"; }
   border: 1px solid var(--md-typeset-table-color);
 }
 
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+}
+
 /* 表格跨行内容居中 */
 .md-typeset table :is(td, th)[rowspan] {
   vertical-align: middle !important;
