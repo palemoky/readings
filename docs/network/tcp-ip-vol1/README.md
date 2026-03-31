@@ -157,7 +157,7 @@ iptables 是用 NetFilter 的网络过滤功能构建的。iptables 由 table（
     - POSTROUTING：链在数据包离开系统之前进行处理
 
 <figure markdown>
-  ![iptables Table & Chain](imgs/iptables-table-chain.png){ width="50%" }
+  ![iptables Table & Chain](imgs/iptables-table-to-chain.png){ width="50%" }
   <figcaption>iptables 的 table 与 chain 通过组合使用实现灵活管理网络流量</figcaption>
 </figure>
 
