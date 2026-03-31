@@ -22,6 +22,8 @@ nav = [
     {"操作系统导论" = "os/ostep/README.md"}, 
     {"Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
     {"性能之巅" = "os/systems-performance/README.md"}, 
+    # {"鸟哥 Linux 基础" = "os/linux-basic/README.md"},
+    {"鸟哥 Linux 服务器" = "os/linux-server-setup/README.md"}
   ] },
   { "网络通信" = [
     {"网络通信" = "network/README.md"}, 
