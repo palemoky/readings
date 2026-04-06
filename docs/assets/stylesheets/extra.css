@@ -151,7 +151,13 @@ div.language-html.highlight::after { content: "HTML"; }
 div.language-css.highlight::after { content: "CSS"; }
 
 /* 自定义宽度切换按钮 & Tooltip */
-.width-toggle-btn { cursor: pointer; position: relative; }
+/* 仅在屏幕宽度明显大于正常内容宽度时显示（≥ 1440px） */
+.width-toggle-btn { display: none; cursor: pointer; position: relative; }
+
+@media (min-width: 1440px) {
+  .width-toggle-btn { display: inline-flex; }
+}
+
 .width-toggle-btn svg { color: var(--md-default-fg-color); }
 [data-md-color-scheme="slate"] .width-toggle-btn svg { color: #E2E4E9D1; }
 
@@ -198,13 +204,15 @@ div.language-css.highlight::after { content: "CSS"; }
   vertical-align: middle !important;
 }
 
-/* 宽屏模式切换逻辑 */
-[data-wide-screen="true"] .md-sidebar { display: none !important; }
-[data-wide-screen="true"] .md-grid {
-  max-width: 85% !important; /* 稍微调大一点提升空间利用率 */
-  margin: 0 auto !important;
+/* 宽屏模式切换逻辑（仅在 ≥ 1440px 时生效，防止移动端误触发） */
+@media (min-width: 1440px) {
+  [data-wide-screen="true"] .md-sidebar { display: none !important; }
+  [data-wide-screen="true"] .md-grid {
+    max-width: 85% !important;
+    margin: 0 auto !important;
+  }
+  [data-wide-screen="true"] .md-content { margin: 0 !important; }
 }
-[data-wide-screen="true"] .md-content { margin: 0 !important; }
 
 /* 清除浮动辅助 */
 h2, h3, h4, h5, h6 { clear: both; }

@@ -16,14 +16,8 @@ document$.subscribe(() => {
     document.body.setAttribute('data-wide-screen', 'true');
   }
 
-  // Create toggle button
-  const button = document.createElement('button');
-  button.className = 'md-header__option md-icon';
-  // Removed title attribute to use custom CSS tooltip instead
-  button.setAttribute('aria-label', 'Switch to wide-screen mode');
-
-  // Icon (inline SVG for theme color support):
-  button.innerHTML = `
+  // SVG icon: arrows pointing outward (expand to wide-screen)
+  const ICON_EXPAND = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
       <path d="M2 7V5C2 3.9 2.9 3 4 3H20C21.1 3 22 3.9 22 5V7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
       <path d="M2 17V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -32,8 +26,29 @@ document$.subscribe(() => {
     </svg>
   `;
 
-  // Add a specific class for precise styling
+  // SVG icon: arrows pointing inward (compress back to normal)
+  const ICON_COMPRESS = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M2 7V5C2 3.9 2.9 3 4 3H20C21.1 3 22 3.9 22 5V7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M2 17V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M2 12H8M8 12L5.5 9.5M8 12L5.5 14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 12H16M16 12L18.5 9.5M16 12L18.5 14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+
+  // Sync button icon and tooltip to current state
+  const updateButton = (wide) => {
+    button.innerHTML = wide ? ICON_COMPRESS : ICON_EXPAND;
+    button.setAttribute('aria-label', wide ? 'Switch to normal mode' : 'Switch to wide-screen mode');
+  };
+
+  // Create toggle button
+  const button = document.createElement('button');
+  button.className = 'md-header__option md-icon';
   button.classList.add('width-toggle-btn');
+
+  // Set initial icon based on current state
+  updateButton(isWide);
 
   button.addEventListener('click', () => {
     const body = document.body;
@@ -42,9 +57,11 @@ document$.subscribe(() => {
     if (isWide) {
       body.removeAttribute('data-wide-screen');
       localStorage.setItem('wide-screen', 'false');
+      updateButton(false);
     } else {
       body.setAttribute('data-wide-screen', 'true');
       localStorage.setItem('wide-screen', 'true');
+      updateButton(true);
     }
   });
 
