@@ -18,10 +18,10 @@ nav = [
   { "首页" = "index.md" },
   { "计算机系统" = [
     {"计算机系统" = "os/README.md"}, 
-    {"深入理解计算机系统" = "os/csapp/README.md"}, 
+    {"🔥 深入理解计算机系统" = "os/csapp/README.md"}, 
     {"操作系统导论" = "os/ostep/README.md"}, 
-    {"Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
-    {"性能之巅" = "os/systems-performance/README.md"}, 
+    {"🔥 Linux/Unix 系统编程" = "os/linux-unix-system-programming/README.md"}, 
+    {"🔥 性能之巅" = "os/systems-performance/README.md"}, 
     # {"鸟哥 Linux 基础" = "os/linux-basic/README.md"},
     {"鸟哥 Linux 服务器" = "os/linux-server-setup/README.md"}
   ] },
@@ -29,31 +29,31 @@ nav = [
     {"网络通信" = "network/README.md"}, 
     {"HTTP 权威指南" = "network/http-the-definitive-guide/README.md"}, 
     {"网络是怎样连接的" = "network/how-networks-work/README.md"}, 
-    {"TCP/IP 详解（卷1）" = "network/tcp-ip-vol1/README.md"}
+    {"🔥 TCP/IP 详解（卷1）" = "network/tcp-ip-vol1/README.md"}
   ] },
   { "数据库" = [
     {"数据库" = "database/README.md"}, 
-    {"高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
-    {"Redis 开发与运维" = "database/redis-dev-ops/README.md"}
+    {"🔥 高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
+    {"🔥 Redis 开发与运维" = "database/redis-dev-ops/README.md"}
   ] },
   { "分布式" = [
     {"分布式" = "distributed/README.md"}, 
-    {"数据密集型应用设计" = "distributed/ddia/README.md"},
+    {"🔥 数据密集型应用设计" = "distributed/ddia/README.md"},
     # {"Kubernetes 权威指南" = "distributed/kubernetes-the-definitive-guide/README.md"}
   ] },
   { "软件工程" = [
     {"软件工程" = "software/README.md"},
     {"编码" = "software/code/README.md"},
     {"代码大全" = "software/code-complete/README.md"}, 
-    {"精通正则表达式" = "software/mastering-regular-expressions/README.md"}
+    {"🔥 精通正则表达式" = "software/mastering-regular-expressions/README.md"}
   ] },
   { "安全与加密" = [
     {"安全与加密" = "crypto/README.md"},
-    {"图解密码技术" = "crypto/cryptography/README.md"}
+    {"🔥 图解密码技术" = "crypto/cryptography/README.md"}
   ] },
   { "区块链" = [
     {"区块链" = "blockchain/README.md"},
-    {"精通以太坊" = "blockchain/mastering-ethereum/README.md"}
+    {"🔥 精通以太坊" = "blockchain/mastering-ethereum/README.md"}
   ] },
   { "其他" = [
     {"其他" = "others/README.md"},
