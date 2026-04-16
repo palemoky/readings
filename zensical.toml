@@ -76,6 +76,7 @@ features = [
   "content.code.annotate",
   "content.code.copy",
   "content.tooltips",
+  "content.footnote.tooltips",
   "navigation.expand",
   "navigation.indexes",
   "navigation.instant",

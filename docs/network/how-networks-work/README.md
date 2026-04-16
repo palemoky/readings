@@ -118,7 +118,7 @@ TCP 报文的控制头部占 20 字节。首部格式可查看[此视频](https:
   </figure>
 </div>
 
-???+ question "为什么不能用两次握手？[视频讲解](https://youtu.be/Iuvjwrm_O5g?t=143)"
+??? question "为什么不能用两次握手？[视频讲解](https://youtu.be/Iuvjwrm_O5g?t=143)"
 
     !!! tip "核心结论"
         需要三次握手才能确认客户端与服务端的收发能力
