@@ -5,6 +5,7 @@ site_author = "Palemoky"
 site_url = "https://readings.palemoky.com"
 repo_url = "https://github.com/palemoky/readings"
 repo_name = "palemoky"
+edit_uri = "edit/main/docs/"
 copyright = "Copyright &copy; <span id='copyright-year'>2026</span> Palemoky"
 extra_javascript = [
   "assets/javascripts/mathjax.js",
