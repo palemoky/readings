@@ -109,6 +109,8 @@ def_list = {}
 toc.permalink = true
 toc.slugify = { object = "pymdownx.slugs.slugify", kwds = { case = "lower" } }
 
+[project.markdown_extensions.zensical.extensions.glightbox]
+
 [project.markdown_extensions.pymdownx]
 arithmatex = { generic = true }
 betterem = { smart_enable = "none" }
