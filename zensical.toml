@@ -133,7 +133,7 @@ blocks.caption = {}
 generator = false
 social = [
   { icon = "fontawesome/brands/github", link = "https://github.com/palemoky" },
-  { icon = "fontawesome/solid/brain", link = "https://algo.palemoky.com" },
+  { icon = "fontawesome/solid/code", link = "https://algo.palemoky.com" },
   { icon = "fontawesome/solid/feather", link = "https://poetry.palemoky.com" },
   # { icon = "fontawesome/solid/feather-pointed", link = "https://blog.palemoky.com" }
 ]
