@@ -26,8 +26,8 @@ nav = [
     # {"鸟哥 Linux 基础" = "os/linux-basic/README.md"},
     {"鸟哥 Linux 服务器" = "os/linux-server-setup/README.md"}
   ] },
-  { "网络通信" = [
-    {"网络通信" = "network/README.md"}, 
+  { "网络协议" = [
+    {"网络协议" = "network/README.md"}, 
     {"HTTP 权威指南" = "network/http-the-definitive-guide/README.md"}, 
     {"网络是怎样连接的" = "network/how-networks-work/README.md"}, 
     {"🔥 TCP/IP 详解（卷1）" = "network/tcp-ip-vol1/README.md"}
@@ -36,6 +36,10 @@ nav = [
     {"数据库" = "database/README.md"}, 
     {"🔥 高性能 MySQL" = "database/high-performance-mysql/README.md"}, 
     {"🔥 Redis 开发与运维" = "database/redis-dev-ops/README.md"}
+  ] },
+  { "中间件" = [
+    {"中间件" = "middleware/README.md"},
+    {"深入理解 Kafka" = "middleware/kafka/README.md"}
   ] },
   { "分布式" = [
     {"分布式" = "distributed/README.md"}, 
