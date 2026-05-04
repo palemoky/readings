@@ -64,6 +64,15 @@ img[loading="lazy"] {
 .md-typeset figure > p { margin: 0; }
 .md-typeset figure br { display: none; }
 
+/* Lightbox image background for different color schemes */
+.gslide-image img {
+  background-color: white;
+}
+
+/* [data-md-color-scheme="slate"] .gslide-image img {
+  background-color: #1e1e1e;
+} */
+ 
 /* ==========================================================================
    3. 增强组件：Grid Cards (卡片布局)
    ========================================================================== */
