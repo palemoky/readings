@@ -665,7 +665,7 @@ UDP 被主要应用于 DNS、视频会议、在线游戏等场景。
 
 === "perf"
 
-    perf 是一款综合的性能分析工具，可结合火焰图排查系统问题。perf 命令入门：[https://www.ruanyifeng.com/blog/2017/09/flame-graph.html](https://www.ruanyifeng.com/blog/2017/09/flame-graph.html)
+    perf 是一款综合的性能分析工具，可结合火焰图排查系统问题。perf 命令入门：[https://www.ruanyifeng.com/blog/2017/09/flame-graph.html](https://www.ruanyifeng.com/blog/2017/09/flame-graph.html)，火焰图作者 Brendan Gregg 的官方页面：[https://www.brendangregg.com/flamegraphs.html](https://www.brendangregg.com/flamegraphs.html)
 
 === "uptime"
 
