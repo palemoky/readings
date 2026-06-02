@@ -1,0 +1,4 @@
+# mkdocs docs are formatted with mdformat (+ mdformat-mkdocs), which uses
+# 4-space nested-list indentation. Keep prettier away so it can't collapse it.
+docs/
+
