@@ -99,14 +99,25 @@
     - 日活跃用户 (DAU) = 3 亿 (300M)。
     - 用户平均每天浏览信息流 (Feed) = 50 次。
     - 用户平均每天发帖 (Write) = 2 次。
-2. **吞吐量 (QPS) 估算**：
-    - **写入 (发帖) QPS**：
-        $$\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS}$$
-        $$\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}$$
-    - **读取 (浏览) QPS**：
-        $$\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS}$$
-        $$\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}$$
-3. **存储容量估算**：
+2. **写入 (发帖) QPS 估算**：
+
+$$
+\begin{aligned}
+&\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS} \\
+&\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}
+\end{aligned}
+$$
+
+3. **读取 (浏览) QPS 估算**：
+
+$$
+\begin{aligned}
+&\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS} \\
+&\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}
+\end{aligned}
+$$
+
+4. **存储容量估算**：
     - 单条帖子数据：文本内容 (100 字符 ≈ 200 Bytes) + 元数据 (如用户 ID、发帖时间等 100 Bytes) ≈ 300 Bytes。
     - 假设 10% 的帖子包含 1 张图片（平均 1 MB），1% 的帖子包含短视频（平均 10 MB）。
     - 每日新增文本存储：$6\text{亿条} \times 300\text{ B} = 180\text{ GB}$。
@@ -114,7 +125,7 @@
         - 图片：$6\text{亿条} \times 10\% \times 1\text{ MB} = 60\text{ TB}$。
         - 视频：$6\text{亿条} \times 1\% \times 10\text{ MB} = 60\text{ TB}$。
     - **总存储增量**：每天约增加 120 TB 存储空间。5 年期存储需预备 $\approx 220\text{ PB}$（未计副本与多版本）。
-4. **带宽带宽 (Bandwidth) 估算**：
+5. **带宽 (Bandwidth) 估算**：
     - 出口带宽（主要由浏览产生）：
         - 假设用户浏览时，只有 10% 的时间加载图片，1% 的时间加载视频。
         - 平均每秒浏览数据量：$\text{Read QPS} \times \text{平均单条大小}$。
@@ -134,13 +145,14 @@
 
 ### HTTP 响应设计
 
+![Rate Limit](./imgs/rate-limit.jpg){ align=right width=40% }
 当客户端请求触发限流阈值时，网关或限流器应向其返回 **`HTTP 429 Too Many Requests`** 状态码，并附带以下标准或约定俗成的响应头：
 
 - **`X-Ratelimit-Limit`**：当前限流窗口内允许的最大调用次数。
 - **`X-Ratelimit-Remaining`**：当前窗口内还能发起的剩余请求数。
 - **`X-Ratelimit-Retry-After`**：客户端需要等待多少秒后，才能发起下一次不被拒绝的请求。
 
-![Rate Limit](./imgs/rate-limit.jpg)
+
 
 ### 分布式限流的挑战
 
@@ -242,21 +254,21 @@
 
 ### 2. 核心技术设计
 
-#### 1) 增量同步与分块传输
+#### 2.1 增量同步与分块传输
 
 不上传整个文件，而是仅对修改过的文件块进行计算并上传。
 
 - 当文件修改时，客户端的分块算法重新计算受影响分块的 Hash。
 - 仅将有变动的分块上传到云端，在服务器端完成合并/版本更新。
 
-#### 2) 秒传与数据去重
+#### 2.2 秒传与数据去重
 
 为了节省存储空间和带宽，在文件块级别进行哈希比对：
 
 - 在上传任何分块前，客户端向元数据服务发送该分块的哈希值（如 SHA-256）。
 - 如果该哈希值已存在于系统数据库中（其他用户已上传过），则**跳过该块的物理上传**，仅在元数据中建立引用关系。
 
-#### 3) 冲突解决
+#### 2.3 冲突解决
 
 当多台设备同时离线编辑同一个文件并上线同步时，会产生版本冲突：
 
