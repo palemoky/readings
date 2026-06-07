@@ -1,51 +1,69 @@
 {% if not page.meta.comments %}
     <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
-    <script src="https://giscus.app/client.js"
-        data-repo="palemoky/readings"
-        data-repo-id="R_kgDORg0Ebw"
-        data-category="General"
-        data-category-id="DIC_kwDORg0Eb84C4kT2"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-    </script>
 
-    <!-- Synchronize Giscus theme with palette -->
     <script>
-        var giscus = document.querySelector("script[src*=giscus]")
-
-        // Set palette on initial load
-        var palette = __md_get("__palette")
-        if (palette && typeof palette.color === "object") {
-            var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
-
-            // Instruct Giscus to set theme
-            giscus.setAttribute("data-theme", theme) 
-        }
-
-        // Register event handlers after documented loaded
-        document.addEventListener("DOMContentLoaded", function() {
-            var ref = document.querySelector("[data-md-component=palette]")
-            ref.addEventListener("change", function() {
-            var palette = __md_get("__palette")
-            if (palette && typeof palette.color === "object") {
-                var theme = palette.color.scheme === "slate" ? "transparent_dark" : "light"
-
-                // Instruct Giscus to change theme
-                var frame = document.querySelector(".giscus-frame")
-                frame.contentWindow.postMessage(
-                { giscus: { setConfig: { theme } } },
-                "https://giscus.app"
-                )
+        (function () {
+            // Resolve the giscus theme from the current Material palette
+            function giscusTheme() {
+                var palette = __md_get("__palette")
+                if (palette && typeof palette.color === "object")
+                    return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+                return "preferred_color_scheme"
             }
-            })
-        })
+
+            // (Re)inject the giscus script. Runs on initial load and on every
+            // instant (SPA) navigation, since the previous iframe is discarded
+            // together with the swapped-out page content.
+            function loadGiscus() {
+                var anchor = document.getElementById("__comments")
+                if (!anchor || document.querySelector(".giscus")) return
+
+                var script = document.createElement("script")
+                script.src = "https://giscus.app/client.js"
+                script.crossOrigin = "anonymous"
+                script.async = true
+
+                var attrs = {
+                    "data-repo": "palemoky/readings",
+                    "data-repo-id": "R_kgDORg0Ebw",
+                    "data-category": "General",
+                    "data-category-id": "DIC_kwDORg0Eb84C4kT2",
+                    "data-mapping": "pathname",
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "0",
+                    "data-input-position": "top",
+                    // Eager load: avoids the IntersectionObserver race that made
+                    // comments intermittently fail to appear at the page bottom.
+                    "data-loading": "eager",
+                    "data-lang": "zh-CN",
+                    "data-theme": giscusTheme()
+                }
+                for (var key in attrs) script.setAttribute(key, attrs[key])
+
+                anchor.insertAdjacentElement("afterend", script)
+            }
+
+            // Sync the giscus theme whenever the palette toggle changes.
+            // Guarded so repeated script execution (instant nav) won't stack
+            // duplicate listeners.
+            function setupThemeSync() {
+                if (window.__giscusThemeSync) return
+                window.__giscusThemeSync = true
+
+                document.addEventListener("change", function (event) {
+                    if (!event.target.closest("[data-md-component=palette]")) return
+                    var frame = document.querySelector(".giscus-frame")
+                    if (!frame || !frame.contentWindow) return
+                    frame.contentWindow.postMessage(
+                        { giscus: { setConfig: { theme: giscusTheme() } } },
+                        "https://giscus.app"
+                    )
+                })
+            }
+
+            setupThemeSync()
+            loadGiscus()
+        })()
     </script>
 {% endif %}
