@@ -58,7 +58,6 @@
     - **OT (Operational Transformation, 操作转换)**：对用户的编辑操作（如插入、删除）进行位置偏移修正，常用于 Google Docs 等基于中央服务器的协作系统。
     - **CRDT (Conflict-Free Replicated Data Types, 无冲突复制数据类型)**：在数据结构层面满足交换律和结合律，无需中央服务器协调，客户端之间两两同步即可直接合并为一致状态，适合 Notion、Figma 等分布式协作系统。
 
-
 ## 估算
 
 在系统设计面试中，估算旨在评估你对数据量级、计算瓶颈、网络带宽和存储需求的量化分析能力。无需追求绝对精确，重点在于展示出清晰严密的推导逻辑。
@@ -98,28 +97,31 @@
 我们以社交媒体发帖/微博为例：
 
 1. **确定用户基数与行为特征**：
+
     - 日活跃用户 (DAU) = 3 亿 (300M)。
     - 用户平均每天浏览信息流 (Feed) = 50 次。
     - 用户平均每天发帖 (Write) = 2 次。
+
 2. **写入 (发帖) QPS 估算**：
 
-$$
-\begin{aligned}
-&\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS} \\
-&\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+        &\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS} \\
+        &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}
+        \end{aligned}
+    $$
 
 3. **读取 (浏览) QPS 估算**：
 
-$$
-\begin{aligned}
-&\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS} \\
-&\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+        &\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS} \\
+        &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}
+        \end{aligned}
+    $$
 
 4. **存储容量估算**：
+
     - 单条帖子数据：文本内容 (100 字符 ≈ 200 Bytes) + 元数据 (如用户 ID、发帖时间等 100 Bytes) ≈ 300 Bytes。
     - 假设 10% 的帖子包含 1 张图片（平均 1 MB），1% 的帖子包含短视频（平均 10 MB）。
     - 每日新增文本存储：$6\text{亿条} \times 300\text{ B} = 180\text{ GB}$。
@@ -127,7 +129,9 @@ $$
         - 图片：$6\text{亿条} \times 10\% \times 1\text{ MB} = 60\text{ TB}$。
         - 视频：$6\text{亿条} \times 1\% \times 10\text{ MB} = 60\text{ TB}$。
     - **总存储增量**：每天约增加 120 TB 存储空间。5 年期存储需预备 $\approx 220\text{ PB}$（未计副本与多版本）。
+
 5. **带宽 (Bandwidth) 估算**：
+
     - 出口带宽（主要由浏览产生）：
         - 假设用户浏览时，只有 10% 的时间加载图片，1% 的时间加载视频。
         - 平均每秒浏览数据量：$\text{Read QPS} \times \text{平均单条大小}$。
@@ -225,10 +229,12 @@ $$
 在高延迟或离线编辑的边缘场景下，经常会出现**逻辑上冲突但技术上被强制合并**的尴尬体验（例如：“A 删除了表单，而尚未感知到删除的 B 仍在往表单里写内容”）。
 
 #### 技术底层的合并表现
+
 - **OT (操作转换)**：服务器在时刻 $t$ 接收并应用了 A 的“删除表单”操作。当收到 B 延迟发出的“往表单插入字符”操作时，OT 引擎根据版本链检测到目标容器（表单 ID）已被标记为删除，转换后的操作会变成**空操作 (No-op)**，从而使 B 的编辑数据丢失。
 - **CRDT (无冲突复制类型)**：数据的层级结构在本地即可合并。合并后表单节点被置为“已删除（或隐藏）”，由于 B 插入的字符节点是表单节点的子节点，合并后这些字符在界面上也会随之**不可见**。
 
 #### 面试加分解决策略
+
 单纯技术层面的合并通常会导致 B 的输入无声无息地消失，这在产品体验上是不可接受的。对此可采用以下组合解决方案：
 
 1. **墓碑机制与历史暂存**：数据删除时并不进行物理抹除，而是标记为 Tombstone。当 B 在已被 A 删除的区块中输入时，系统能够保留 B 的修改历史，支持一键“撤销删除”以恢复 A 删除的区块，并将 B 的内容重新关联展现。
