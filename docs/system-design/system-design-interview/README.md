@@ -69,19 +69,21 @@ ______________________________________________________________________
     - 用户平均每天发帖 (Write) = 2 次。
 
 2. **写入 (发帖) QPS 估算**：
+
     $$
     \begin{aligned}
-    &\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS} \\
-    &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}
-    \end{aligned}
+        &\text{Average QPS} = \frac{3 \times 10^8 \times 2}{86400 \text{ 秒}} \approx 6,944 \text{ QPS} \\
+        &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 14,000 \text{ QPS}
+        \end{aligned}
     $$
 
 3. **读取 (浏览) QPS 估算**：
+
     $$
     \begin{aligned}
-    &\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS} \\
-    &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}
-    \end{aligned}
+        &\text{Average QPS} = \frac{3 \times 10^8 \times 50}{86400 \text{ 秒}} \approx 173,600 \text{ QPS} \\
+        &\text{Peak QPS} \approx 2 \times \text{Average QPS} \approx 350,000 \text{ QPS}
+        \end{aligned}
     $$
 
 4. **存储容量估算**：
