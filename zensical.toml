@@ -47,7 +47,8 @@ nav = [
   ] },
   { "系统设计" = [
     { "系统设计" = "system-design/README.md" },
-    { "🔥 系统设计面试" = "system-design/system-design-interview/README.md" },
+    { "🔥 系统设计面试（卷 1）" = "system-design/system-design-interview-vol1/README.md" },
+    { "🔥 系统设计面试（卷 2）" = "system-design/system-design-interview-vol2/README.md" },
   ] },
   { "开发工具" = [
     { "开发工具" = "dev-tools/README.md" },
