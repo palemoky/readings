@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://readings.palemoky.com/sitemap.xml

@@ -1,3 +1,8 @@
+---
+title: 计算机经典书籍读书笔记
+description: 记录计算机经典书籍的读书笔记，涵盖操作系统、网络协议、数据库、分布式系统、系统设计等领域。包括 CSAPP、DDIA、TCP/IP、MySQL、Redis、Kafka、System Design 等经典书籍的深度解读。
+---
+
 # 藏经阁
 
 > 书籍是与大师对话的最好方式。

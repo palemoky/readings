@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {% set page_desc = page.meta.description if page.meta is defined and page.meta.description is defined else config.site_description %}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ page.title }} - {{ config.site_name }}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:url" content="{{ page.canonical_url }}">
+  <meta property="og:image" content="{{ config.site_url }}assets/logo.webp">
+  <meta property="og:locale" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ page.title }} - {{ config.site_name }}">
+  <meta name="twitter:description" content="{{ page_desc }}">
+  <meta name="twitter:image" content="{{ config.site_url }}assets/logo.webp">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ config.site_name }}",
+    "url": "{{ config.site_url }}",
+    "description": "{{ config.site_description }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ config.site_author }}"
+    },
+    "inLanguage": "zh-CN"
+  }
+  </script>
+{% endblock %}

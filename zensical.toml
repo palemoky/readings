@@ -1,6 +1,6 @@
 [project]
 site_name = "藏经阁"
-site_description = "书籍是与大师对话的最好方式"
+site_description = "计算机经典书籍读书笔记 | CSAPP、DDIA、TCP/IP、MySQL、Redis、Kafka、System Design | 藏经阁"
 site_author = "Palemoky"
 site_url = "https://readings.palemoky.com"
 repo_url = "https://github.com/palemoky/readings"
