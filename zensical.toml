@@ -58,6 +58,7 @@ nav = [
     { "软件工程" = "software/README.md" },
     { "编码" = "software/code/README.md" },
     { "代码大全" = "software/code-complete/README.md" },
+    { "重构" = "software/refactoring-version1/README.md" },
     { "🔥 精通正则表达式" = "software/mastering-regular-expressions/README.md" },
   ] },
   { "安全与加密" = [
