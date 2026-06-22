@@ -23,7 +23,7 @@
 ## Basic
 
 <figure align="center">
-    <img src="imgs/regex-metacharacters-diagram.png" alt="Regex 元字符图解" width="60%" />
+    <img src="imgs/regex-metacharacters-diagram.webp" alt="Regex 元字符图解" width="60%" />
     <figcaption>Regex 元字符图解</figcaption>
 </figure>
 
@@ -177,15 +177,15 @@ Line   <- Matched
 
 <div class="grid cards" markdown>
 - <figure>
-      ![成功匹配 ".*"](imgs/regex-match-success-dot-star.png)
+      ![成功匹配 ".*"](imgs/regex-match-success-dot-star.webp)
       <figcaption>成功匹配 ".*"</figcaption>
   </figure>
 - <figure>
-      ![失败匹配 ".*"](imgs/regex-match-fail-dot-star.png)
+      ![失败匹配 ".*"](imgs/regex-match-fail-dot-star.webp)
       <figcaption>失败匹配 ".*"</figcaption>
   </figure>
 - <figure>
-      ![失败匹配 "[^\"]*"](imgs/regex-match-fail-negated-quote.png)
+      ![失败匹配 "[^\"]*"](imgs/regex-match-fail-negated-quote.webp)
       <figcaption>失败匹配 "[^\"]*"</figcaption>
   </figure>
 </div>

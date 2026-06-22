@@ -79,7 +79,7 @@
 - 古罗马文明：大约存在于公元前 753 年到公元 476 年。这一时期涵盖了罗马共和国和罗马帝国两个阶段。在这个时期，罗马文化和政治逐渐壮大，征服了地中海地区和欧洲大陆的大部分领土，在建筑、工程、法律、军事等方面作出了很多重要的贡献，并在其后的欧洲历史上留下了不可磨灭的印记。
 
 <figure markdown>
-  ![古罗马与罗马帝国时间轴](imgs/ancient-roman-empire-timeline.png){ width=80% }
+  ![古罗马与罗马帝国时间轴](imgs/ancient-roman-empire-timeline.webp){ width=80% }
   <figcaption>古罗马与罗马帝国时间轴</figcaption>
 </figure>
 
@@ -128,15 +128,15 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![1241 年，鼎盛时期蒙古帝国疆域图](imgs/1241-mongol-empire-territory.png)
+    ![1241 年，鼎盛时期蒙古帝国疆域图](imgs/1241-mongol-empire-territory.webp)
     <figcaption>1241 年，鼎盛时期蒙古帝国疆域图</figcaption>
   </figure>
 - <figure>
-    ![蒙古帝国分裂](imgs/mongol-empire-division.png)
+    ![蒙古帝国分裂](imgs/mongol-empire-division.webp)
     <figcaption>成吉思汗去世后，子孙内斗分裂为四大汗国与元朝</figcaption>
   </figure>
 - <figure>
-    ![1327 年元朝疆域](imgs/1327-yuan-dynasty-territory.png)
+    ![1327 年元朝疆域](imgs/1327-yuan-dynasty-territory.webp)
     <figcaption>1327 年元朝鼎盛疆域（含今日本北海道与千岛群岛）</figcaption>
   </figure>
 - 蒙古的崛起深刻改变了世界的走向：
@@ -152,15 +152,15 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![1840 年清朝局势](imgs/1840-qing-dynasty-situation.png)
+    ![1840 年清朝局势](imgs/1840-qing-dynasty-situation.webp)
     <figcaption>1840 年鸦片战争前的局势：西方列强历经三百年海外扩张，已将清帝国置于群雄环伺之境</figcaption>
   </figure>
 - <figure>
-    ![1860 年俄罗斯帝国疆域](imgs/1860-russian-empire-territory.png)
+    ![1860 年俄罗斯帝国疆域](imgs/1860-russian-empire-territory.webp)
     <figcaption>1860 年俄罗斯帝国横跨欧亚，大量蚕食清朝东北、西北领土</figcaption>
   </figure>
 - <figure>
-    ![1900 年国际局势](imgs/1900-international-situation.png)
+    ![1900 年国际局势](imgs/1900-international-situation.webp)
     <figcaption>1900 年国际局势：日不落帝国（英）势力范围已与清朝接壤</figcaption>
   </figure>
 - 理性审视清朝的历史定位：
@@ -171,7 +171,7 @@
 
 </div>
 
-![东印度公司](imgs/india-colonization-history.png){ align=right width=40% }
+![东印度公司](imgs/india-colonization-history.webp){ align=right width=40% }
 
 印度从 1498 年被葡萄牙建立第一个殖民地开始，之后荷兰、法国、英国依次殖民印度，直到 1947 年才独立，被殖民统治长达四个半世纪！由于长时间的殖民统治，印度内部矛盾重重，比如种姓制度原本是为了方便殖民者统治，即使独立七十多年，该制度仍荼毒印度。在印度独立后，又再次分裂：东边独立出孟加拉国、西边独立出巴基斯坦。
 

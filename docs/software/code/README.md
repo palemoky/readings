@@ -14,15 +14,15 @@
 
 摩尔斯电码设计时，将常用字符用最简短的方式表示，以高效发送信息。
 
-![摩尔斯电码字母和数字对应表](imgs/morse-code-table.png){ align=left width=50% }
+![摩尔斯电码字母和数字对应表](imgs/morse-code-table.webp){ align=left width=50% }
 
 <div class="grid cards" markdown>
 - <figure>
-    ![摩尔斯电码](imgs/morse-code.png)
+    ![摩尔斯电码](imgs/morse-code.webp)
     <figcaption>摩尔斯电码</figcaption>
   </figure>
 - <figure>
-    ![摩尔斯电码树状图](imgs/morse-code-tree.png)
+    ![摩尔斯电码树状图](imgs/morse-code-tree.webp)
     <figcaption>摩尔斯电码树状图</figcaption>
   </figure>
 </div>
@@ -31,24 +31,24 @@
 
 ## 布莱叶盲文
 
-![盲文的六点排列图](imgs/braille-6-dot.png){ align=left width=10% }
+![盲文的六点排列图](imgs/braille-6-dot.webp){ align=left width=10% }
 布莱叶盲文由 6 个点阵排列组成，每个点阵有凸与平两种状态，共能表示 64 种字符。
 
 当部队需要无声交流的时候，即使光线很暗，士兵们也可以通过布莱叶盲文互相传递信息。
 
 <div style="clear: both;"></div>
 
-![拉丁字母](imgs/braille-latin-alphabet.png){ align=right width=40% }
+![拉丁字母](imgs/braille-latin-alphabet.webp){ align=right width=40% }
 表中第一行只用 1、2、4、5 四个点，第二行由第一行加 3 点而得，第三行除 “w” 外其余均由第一行加 3、6 点而得，第四行由第一行加 6 点而得。第一行十个字母的符形也有一定规律，前三个字母（abc）和元音字母（aei）只有一个或两个凸点，第 4、6、8、10 个字母（dfhj）有三个凸点，剩下的 g 有四个凸点。
 
 > 图片来自 [盲文-维基百科](https://zh.wikipedia.org/zh-cn/%E7%9B%B2%E6%96%87)
 
 <div style="clear: both;"></div>
 
-![阿拉伯数字](imgs/braille-arabic-numerals.png){ align=left width=50% }
+![阿拉伯数字](imgs/braille-arabic-numerals.webp){ align=left width=50% }
 阿拉伯数字表示法有布莱叶和安托万两种。布莱叶式比较常用，英语盲文、汉语盲文等众多盲文都使用这种形式；安托万式主要用于法语盲文。
 
-![二级布莱叶盲文](imgs/braille-grade-2.png){ align=right width=50% }
+![二级布莱叶盲文](imgs/braille-grade-2.webp){ align=right width=50% }
 二级布莱叶盲文使用了很多缩写，以便于保存树型结构和提高阅读速度。
 
 ## 十进制
@@ -69,21 +69,21 @@
 
 我们日常生活中最常用的二进制表现形式就是通用产品代码（UPC，Universal Product Code），使用扫码枪扫描商品的条码，扫码枪读取的 UPC 断面如图所示， 通过黑白条块表示二进制信息，再根据编码表解读其中的商品编号，从而获得价格等商品属性信息。
 
-![UPC 条形码示例](imgs/upc-barcode-sample.png)
+![UPC 条形码示例](imgs/upc-barcode-sample.webp)
 
 ### 条形码的结构
 
 <figure markdown>
-  ![条码结构](imgs/barcode-structure.png){ width=50% }
+  ![条码结构](imgs/barcode-structure.webp){ width=50% }
   <figcaption>条码结构（图自 https://youtu.be/XW8sgT_D0To）</figcaption>
 </figure>
 
 - 起始码与终止码：所有条码的固定开头与结尾，代表 101，相同的起始与结束符允许条码正、反扫描，同时让扫码器得知最细宽度，从而得知二、三、四倍宽度，这样就可以让条形码无论以什么比例印刷，都可以正确读取
 - 系统码：用于表示商品分类，如 0 表示普通 UPC，2 表示农产品等
 - 中间码：作为左右编码的分隔，可防止条形码被篡改或印刷错误，如果无法找到中间码，则无法对条码进行正确解码
-    ![条码奇偶性（左侧和右侧的编码规则）](imgs/barcode-parity.png){ align=right width=50% }
+    ![条码奇偶性（左侧和右侧的编码规则）](imgs/barcode-parity.webp){ align=right width=50% }
 - 数据码：条形码的主要内容，中间码左右分别有 6 组比特串，每组中含有 7 个比特位。有趣的是，中间码左右的数据码有不同的编码规则，即左侧 1 的个数是奇数，并以 0 开始，以 1 结尾；右侧编码则是左侧编码的反码，1 的个数为偶数，并以 1 开始，以 0 结尾，这样，当扫码枪从左往右扫描到偶数个 1 时，即可确认扫反了，先将二进制位按右侧解码，再按左侧解码即可，最后还原出真实的条码
-    ![条码检查码计算示例](imgs/barcode-check-digit.png){ align=right width=50% }
+    ![条码检查码计算示例](imgs/barcode-check-digit.webp){ align=right width=50% }
 - 检查码：校验前边 11 位数据是否正确，就像身份证号的最后一位一样。其计算规则如下：
     - $CC=3×(1+2+5+8+8+0)+(1+6+2+1+3)=3×24+13=85$
     - $C=90-85=5$ （90 为大于 85 的最小 10 的整倍数）
@@ -110,11 +110,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![被污损的条码](imgs/damaged-barcode.png)
+    ![被污损的条码](imgs/damaged-barcode.webp)
     <figcaption>被污损的条码</figcaption>
   </figure>
 - <figure>
-    ![磁性防盗条码](imgs/magnetic-security-strip.png)
+    ![磁性防盗条码](imgs/magnetic-security-strip.webp)
     <figcaption>磁性防盗条码</figcaption>
   </figure>
 </div>
@@ -173,11 +173,11 @@ IEEE 浮点数标准定义了两种基本的格式：以 4 个字节表示的单
 
 <div class="grid cards" markdown>
 - <figure>
-    ![单精度浮点数格式](imgs/ieee-single-precision.png)
+    ![单精度浮点数格式](imgs/ieee-single-precision.webp)
     <figcaption>单精度浮点数格式</figcaption>
   </figure>
 - <figure>
-    ![双精度浮点数格式](imgs/ieee-double-precision.png)
+    ![双精度浮点数格式](imgs/ieee-double-precision.webp)
     <figcaption>双精度浮点数格式</figcaption>
   </figure>
 </div>

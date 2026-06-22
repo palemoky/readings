@@ -81,8 +81,8 @@ language = "zh"
 primary = "white"
 accent = "blue"
 custom_dir = "overrides"
-favicon = "assets/logo.png"
-logo = "assets/logo.png"
+favicon = "assets/logo.webp"
+logo = "assets/logo.webp"
 features = [
   "announce.dismiss",
   "content.action.edit",

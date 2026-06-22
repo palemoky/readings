@@ -1,0 +1,15 @@
+repos:
+  # Pre-commit hooks configuration
+  # Install: pre-commit install
+
+  # =======================================================
+  # Images: Convert to WebP and update Markdown references
+  # =======================================================
+  - repo: local
+    hooks:
+      - id: convert-images-to-webp
+        name: Convert images to WebP
+        entry: python3 scripts/img2webp.py
+        language: system
+        files: ^docs/.*\.(png|jpg|jpeg|gif)$
+        pass_filenames: true

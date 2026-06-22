@@ -69,11 +69,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![重构前](imgs/before.png)
+    ![重构前](imgs/before.webp)
     <figcaption>重构前</figcaption>
 </figure>
 - <figure>
-    ![重构后](imgs/after.png)
+    ![重构后](imgs/after.webp)
     <figcaption>重构后</figcaption>
 </figure>
 </div>

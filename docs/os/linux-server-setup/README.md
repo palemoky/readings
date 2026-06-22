@@ -13,7 +13,7 @@
 
 就像 F5 和 Nginx 分别是硬件负载均衡和软件负载均衡的代表一样，防火墙也被分为硬件防火墙和软件防火墙，硬件防火墙就是专门的硬件设备，因此具有更好的性能；软件防火墙则是运行在操作系统上的软件，具有更好的灵活性。硬件防火墙以 Cisco、深信服等为代表，软件防火墙以 Linux 的 NetFilter 为代表。
 
-![Linux 防火墙架构](imgs/linux-firewall-architecture.png){ align=right width=40% }
+![Linux 防火墙架构](imgs/linux-firewall-architecture.webp){ align=right width=40% }
 在 Linux 的网络安全体系中，功能实现分为清晰的层级：最底层是内核态的 **NetFilter** 框架，负责包过滤、NAT 和流量操控等核心能力；紧贴内核之上的是用于下发控制规则的基础用户态工具，包括历史悠久的 `iptables` 和现代化的 `nftables`；为了进一步降低运维门槛，各大发行版还在它们之上提供了同时兼容 iptables/nftables 的易用性封装，例如 RedHat 生态（CentOS、Fedora、Rocky Linux 等）的 `firewalld`，以及 Debian/Ubuntu 生态的 `ufw`（Uncomplicated Firewall）。
 
 !!! warning "避免绕过高级管理工具"
@@ -37,11 +37,11 @@ iptables 是用 NetFilter 的网络过滤功能构建的。如做下图所示，
 
 <div class="grid cards" markdown>
 -  <figure>
-    ![表视角的挂载点](imgs/iptables-table-to-chain.png)
+    ![表视角的挂载点](imgs/iptables-table-to-chain.webp)
     <figcaption>从 Table（功能块）视角：核心表都挂接在哪些包流转生命周期上</figcaption>
   </figure>
 -  <figure>
-    ![链视角的优先级](imgs/iptables-chain-to-table.png)
+    ![链视角的优先级](imgs/iptables-chain-to-table.webp)
     <figcaption>从数据包的 Chain（流转时间线）视角：每到达一个节点按什么优先级匹配功能表</figcaption>
   </figure>
 </div>

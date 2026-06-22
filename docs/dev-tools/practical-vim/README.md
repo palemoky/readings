@@ -6,7 +6,7 @@
     - **时间**：6/4/2026 → 6/15/2026
     - **读后感**：学习 Vim 的必读书目。一次投入，终生受益！学习 Vim 最好的时代已经到来，让 AI 帮你搞定复杂的配置与繁多的操作命令，你只需要专注于编程，剩下的交给 Vim！
 
-![Vim CheatSheet](imgs/vim-cheatsheet.png)
+![Vim CheatSheet](imgs/vim-cheatsheet.webp)
 
 ??? question "为什么要学习 Vim / Neovim？"
 

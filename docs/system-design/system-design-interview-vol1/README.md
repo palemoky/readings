@@ -118,7 +118,7 @@
     - **虚拟节点 (Virtual Nodes)**：若节点在环上分布不均，会导致严重的数据倾斜。为此，引入虚拟节点将每个物理节点映射成多个虚拟点均匀散布在环上，以平衡负载。
     - **架构对比**：Memcached 客户端路由与 Cassandra/DynamoDB 使用了一致性哈希环；而 Redis Cluster 则采用了**哈希槽 (Hash Slots)** 机制（数据被划分为 16384 个槽分管给不同节点），属于一种预分片（Pre-sharding）方案，虽然技术实现不同，但均达到了平滑扩缩容的目的。
 
-![一致性哈希系统架构图](imgs/hash_ring_system.png){ width=70% }
+![一致性哈希系统架构图](imgs/hash_ring_system.webp){ width=70% }
 
 对于极少数被高频访问的**热点 Key (Hotspot Key)**（例如微博名人热帖），即使合理分片仍可能导致单个分片节点过载。对此类热点 Key 需要采用单独拆分存储、多副本分散读取，或配合多级本地缓存进行处理。
 
@@ -145,11 +145,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![数据写入路径](imgs/data_write_path.png)
+    ![数据写入路径](imgs/data_write_path.webp)
     <figcaption>数据写入路径</figcaption>
   </figure>
 - <figure>
-    ![数据读取路径](imgs/data_read_path.png)
+    ![数据读取路径](imgs/data_read_path.webp)
     <figcaption>数据读取路径</figcaption>
   </figure>
 </div>
@@ -178,7 +178,7 @@
 
 #### HTTP 响应设计
 
-![Rate Limit](./imgs/rate-limit.jpg){ align=right width=40% }
+![Rate Limit](./imgs/rate-limit.webp){ align=right width=40% }
 当客户端请求触发限流阈值时，网关或限流器应向其返回 **`HTTP 429 Too Many Requests`** 状态码，并附带以下标准或约定俗成的响应头：
 
 - **`X-Ratelimit-Limit`**：当前限流窗口内允许的最大调用次数。
@@ -199,7 +199,7 @@
 - **UUID**：生成简单、可用性高、碰撞概率极低，易于水平扩展。但其缺点是 128 位长度过长且呈无序状态，不适合作为数据库主键（无序性会导致 B+ 树索引频繁分裂与产生碎片），且无法按时间趋势递增。
 - **数据库号段模式**：为克服数据库单点自增的性能瓶颈，每次向主库批量申请一个范围的号段（如 1000 个 ID）并缓存在本地内存中，分发完毕后再去申请。这在保证 ID 唯一与趋势递增的同时，极大地降低了数据库的并发压力（如美团 Leaf 系统的 Segment 模式，配合双 Buffer 优化可实现高可用无卡顿分发）。
 - **雪花算法**：生成 64 位 `long` 型整数，完全在内存中计算，不依赖外部数据库，性能与吞吐量极高。如下图所示，ID 由 `1位保留位 (0) + 41位时间戳 + 5位数据中心ID + 5位机器ID + 12位毫秒内序列号` 构成，天然按时间递增。最大缺陷是**强依赖系统时钟**，若服务器发生**时钟回拨 (Clock Skew)**，可能会生成重复 ID，需在代码中进行回拨检测与避让。
-    ![雪花算法](imgs/snowflake.png){ width=90% }
+    ![雪花算法](imgs/snowflake.webp){ width=90% }
 
 ## 第三部分：系统设计案例
 
@@ -236,11 +236,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![哈希截取法](imgs/shorturl_hash.png)
+    ![哈希截取法](imgs/shorturl_hash.webp)
     <figcaption>哈希截取法</figcaption>
 </figure>
 - <figure>
-    ![Base62](imgs/shorturl_base62.png)
+    ![Base62](imgs/shorturl_base62.webp)
     <figcaption>Base62 编码</figcaption>
 </figure>
 </div>
@@ -267,7 +267,7 @@
 
 #### 系统架构
 
-![Feed](./imgs/feed.png){ width=70% }
+![Feed](./imgs/feed.webp){ width=70% }
 
 扇出模型：
 
@@ -312,11 +312,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![爬虫架构](imgs/web_spider.png)
+    ![爬虫架构](imgs/web_spider.webp)
     <figcaption>爬虫架构</figcaption>
   </figure>
 - <figure>
-    ![URL Frontier](imgs/url_frontier.png)
+    ![URL Frontier](imgs/url_frontier.webp)
     <figcaption>URL Frontier</figcaption>
   </figure>
 </div>
@@ -360,11 +360,11 @@
 
 <div class="grid cards" markdown>
 - <figure>
-    ![通知系统高层设计](imgs/notification_high_level.png)
+    ![通知系统高层设计](imgs/notification_high_level.webp)
     <figcaption>通知系统高层设计</figcaption>
   </figure>
 - <figure>
-    ![通知系统详细设计](imgs/notification_deep_dive.png)
+    ![通知系统详细设计](imgs/notification_deep_dive.webp)
     <figcaption>通知系统详细设计</figcaption>
   </figure>
 </div>
@@ -393,7 +393,7 @@
 
 ##### 核心组件
 
-![IM 系统架构](imgs/im.png){ align=right width=40% }
+![IM 系统架构](imgs/im.webp){ align=right width=40% }
 
 - 聊天服务器 (Chat Servers)：维护客户端的长连接（WebSocket/TCP），负责实时消息的转发与投递。
 - 在线服务器 (Presence Servers)：管理用户的实时在线/离线状态，接收心跳包并判定网络健康状况。
@@ -469,22 +469,22 @@ IM 消息同步通常通过校验版本号（Sequence/Version ID）来实现：
 
 <div class="grid cards" markdown>
 - <figure>
-    ![IM 单聊](imgs/im_chat.png)
+    ![IM 单聊](imgs/im_chat.webp)
     <figcaption>IM 单聊</figcaption>
   </figure>
 - <figure>
-    ![消息跨设备同步](imgs/im_sync.png)
+    ![消息跨设备同步](imgs/im_sync.webp)
     <figcaption>消息跨设备同步</figcaption>
   </figure>
 </div>
 
 <div class="grid cards" markdown>
 - <figure>
-    ![IM 发送群消息](imgs/im_group_send.png)
+    ![IM 发送群消息](imgs/im_group_send.webp)
     <figcaption>IM 发送群消息</figcaption>
   </figure>
 - <figure>
-    ![IM 接收群消息](imgs/im_group_recv.png)
+    ![IM 接收群消息](imgs/im_group_recv.webp)
     <figcaption>IM 接收群消息</figcaption>
   </figure>
 </div>
@@ -496,7 +496,7 @@ IM 消息同步通常通过校验版本号（Sequence/Version ID）来实现：
     - **小群/好友列表（主动推送）**：采用 **发布 - 订阅模型 (Pub/Sub)**。用户状态变化时，在线服务器主动将事件推送给其在线的好友和当前所在的小群成员。
     - **万人大群/频道（懒加载机制）**：切忌使用主动推送，否则会引发可怕的 **事件广播风暴 (Event Storm)**（状态变更事件数呈 $O(N^2)$ 级爆发）。大群应采用**懒加载 (Lazy Load)**：只有在用户主动进群、手动刷新列表或拉取前排发言人时，才向服务端单向查询在线状态。
 
-![在线状态](imgs/im_online_status.png)
+![在线状态](imgs/im_online_status.webp)
 
 ##### 已读回执
 
@@ -538,18 +538,18 @@ IM 消息同步通常通过校验版本号（Sequence/Version ID）来实现：
 
 <div class="grid cards" markdown>
 - <figure>
-    ![Trie 树](imgs/trie.png)
+    ![Trie 树](imgs/trie.webp)
     <figcaption>带频率前 K 个缓存的 Trie 树</figcaption>
   </figure>
 - <figure>
-    ![Trie 与哈希表映射](imgs/trie_hash_map.png)
+    ![Trie 与哈希表映射](imgs/trie_hash_map.webp)
     <figcaption>Trie 与哈希表映射</figcaption>
   </figure>
 </div>
 
 当用户输入搜索查询时，自动完成的建议必须足够快地显示出来。一篇关于 [Facebook 自动完成系统的文章](https://www.facebook.com/notes/10158791367817200/)显示，该系统需要在 100 毫秒内返回结果，否则会造成卡顿。为了避免遍历整个 trie，我们在每个节点存储前 k 个最常用的查询，这样可以把查询的时间复杂度从 $O(N)$ 降低到 $O(k)$。
 
-![Trie 更新：把 beer 10 更新为 30](imgs/trie_update.png){ align=right width=50% }
+![Trie 更新：把 beer 10 更新为 30](imgs/trie_update.webp){ align=right width=50% }
 Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新需要更新其所有祖先，效率非常低下。
 
 如果需要支持多语言，那么可以把 Unicode 字符存储在 Trie 节点。
@@ -558,7 +558,7 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 #### 数据收集
 
-![数据收集服务](imgs/data_collection.png)
+![数据收集服务](imgs/data_collection.webp)
 
 - Analytics Logs：搜索查询的原始数据
 - Aggregators：把日志处理为正确的格式，以便后续构建 Trie 树。聚合频率可以根据业务需求来定，比如 Twitter 这样的实时应用程序需要最新的自动完成建议，而许多 Google 关键字的自动完成建议每天可能不会有太大变化
@@ -571,7 +571,7 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 #### 查询服务
 
-![](imgs/trie_query.png){ align=right width=25% }
+![](imgs/trie_query.webp){ align=right width=25% }
 为了继续优化速度，还可以：
 
 - 使用 AJAX 请求，实时反馈用户输入
@@ -581,7 +581,7 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 #### 视频转码
 
-![](imgs/upload_video.png){ align=right width=50% }
+![](imgs/upload_video.webp){ align=right width=50% }
 
 视频转码的必要性：
 
@@ -635,11 +635,11 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 <div class="grid cards" markdown>
 - <figure>
-    ![视频转码的 DAG 图](imgs/video_encode_dag.png)
+    ![视频转码的 DAG 图](imgs/video_encode_dag.webp)
     <figcaption>视频转码的 DAG 图</figcaption>
   </figure>
 - <figure>
-    ![视频转码架构图](imgs/video_encode.png)
+    ![视频转码架构图](imgs/video_encode.webp)
     <figcaption>视频转码架构图</figcaption>
   </figure>
 </div>
@@ -656,7 +656,7 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
     3. task scheduler 指示所选的 task worker 运行该任务
     4. task scheduler 绑定任务/工作信息并将其放到 running queue
     5. 一旦工作完成，task scheduler 把工作从 running queue 中移除
-        ![资源管理器](imgs/resource_manager.png)
+        ![资源管理器](imgs/resource_manager.webp)
 - Task workers：运行在 DAG 中定义的任务
 - Temporary storage：此处使用了多种存储系统，存储系统的选择取决于数据类型、大小、访问频率、数据寿命等因素
 - Encoded video：输出编码后的视频，如 `funny_720p.mp4`
@@ -669,11 +669,11 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 <div class="grid cards" markdown>
 - <figure>
-    ![串行处理](imgs/serial_processing.png){width=10%}
+    ![串行处理](imgs/serial_processing.webp){width=10%}
     <figcaption>串行处理</figcaption>
 </figure>
 - <figure>
-    ![并行处理](imgs/parallel_processing.png)
+    ![并行处理](imgs/parallel_processing.webp)
     <figcaption>并行处理</figcaption>
 </figure>
 </div>
@@ -683,11 +683,11 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 <div class="grid cards" markdown>
 - <figure>
-    ![并行化视频上传](imgs/parallel_upload.png)
+    ![并行化视频上传](imgs/parallel_upload.webp)
     <figcaption>并行化视频上传</figcaption>
 </figure>
 - <figure>
-    ![预签名上传](imgs/singed_upload.png)
+    ![预签名上传](imgs/singed_upload.webp)
     <figcaption>预签名上传</figcaption>
 </figure>
 </div>
@@ -698,7 +698,7 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 #### 系统架构
 
-![](imgs/drive_arch.png){ align=left width=50% }
+![](imgs/drive_arch.webp){ align=left width=50% }
 
 - Block servers：将分块的文件上传到云存储。块存储，简称块级存储，是一种在基于云的环境中存储数据文件的技术。一个文件可以分成几个块，每个块都有一个唯一的哈希值，存储在元数据数据库中。每个块都被视为一个独立的对象并存储在对象存储 (Amazon S3) 中。为了重建文件，块以特定顺序连接。至于块大小，可以参考 Dropbox 的 4MB
 - Offline backup queue：如果客户端离线并且无法拉取最新的文件更改，离线备份队列会存储信息，以便在客户端在线时同步更改
@@ -709,11 +709,11 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 <div class="grid cards" markdown>
 - <figure>
-    ![块服务器](imgs/block_servers.png)
+    ![块服务器](imgs/block_servers.webp)
     <figcaption>块服务器</figcaption>
 </figure>
 - <figure>
-    ![增量同步](imgs/delta_sync.png)
+    ![增量同步](imgs/delta_sync.webp)
     <figcaption>增量同步</figcaption>
 </figure>
 </div>
@@ -729,24 +729,24 @@ Trie 的更新尽量全部更新，尽量避免局部更新，因为局部更新
 
 ##### 元数据 ER
 
-![元数据 ER 图](imgs/metadata_er.png)
+![元数据 ER 图](imgs/metadata_er.webp)
 
 ##### 文件上传与下载
 
 <div class="grid cards" markdown>
 - <figure>
-    ![文件上传](imgs/drive_upload.png)
+    ![文件上传](imgs/drive_upload.webp)
     <figcaption>文件上传</figcaption>
 </figure>
 - <figure>
-    ![文件下载](imgs/drive_download.png)
+    ![文件下载](imgs/drive_download.webp)
     <figcaption>文件下载</figcaption>
 </figure>
 </div>
 
 ##### 冲突解决
 
-![同步冲突](imgs/sync_conflict.png){ align=right width=50% }
+![同步冲突](imgs/sync_conflict.webp){ align=right width=50% }
 当多台设备同时离线编辑同一个文件并上线同步时，会产生版本冲突：系统无法自动合并复杂的二进制文件，因此通常保存“先提交者”的版本，并将后提交者的版本另存为副本文件（例如 `document_conflict_copy.docx`），由用户手动合并。
 
 ### 3.9 在线协作文档
