@@ -23,7 +23,7 @@ nav = [
     { "🔥 性能之巅" = "os/systems-performance/README.md" },
     # {"鸟哥 Linux 基础" = "os/linux-basic/README.md"},
     { "鸟哥 Linux 服务器" = "os/linux-server-setup/README.md" },
-    { "垃圾回收的算法与实现" = "os/garbage-collection/README.md" },
+    # { "垃圾回收的算法与实现" = "os/garbage-collection/README.md" },
   ] },
   { "网络协议" = [
     { "网络协议" = "network/README.md" },
