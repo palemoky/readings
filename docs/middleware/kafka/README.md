@@ -23,7 +23,7 @@ Kafka 所扮演的角色：
 
 每个Broker都是Kafka实例，关系如下：
 ```
-Broker 1                             // 每个 Broker 持有多个 Partition 副本，Leader 和 Follower 分布在不同 Broker 上
+Broker 1                             // 每个 Broker 持有多个 Partition 副本，每个 Partition 以追加写入的日志段（Log Segment）持久化到磁盘。Leader 和 Follower 分布在不同 Broker 上
   |--Topic-Partition 1 (Leader)      // 生产者与消费者读写点，写入成功后返回ACK（可设置仅Leader成功或所有ISR副本成功）
   |--Topic-Partition 2 (Follower)    // Follower 从 Leader 同步数据，默认只作为数据备份，不像MySQL或Redis那样分散读压力（2.4 起可配置 Follower Fetching 就近读取）。如果 Leader 宕机，ISR 中的 Follower 会被选举为新 Leader，副本机制是避免单点故障的关键
 
