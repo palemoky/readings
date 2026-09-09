@@ -11,6 +11,7 @@ extra_javascript = [
   "assets/javascripts/mathjax.js",
   "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js",
   "assets/javascripts/width-toggle.js",
+  "/widget.js",
 ]
 extra_css = ["assets/stylesheets/extra.css"]
 nav = [
