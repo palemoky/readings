@@ -1,0 +1,80 @@
+# 内容体检：死链 + 可能过时的表述。
+#
+# 这个 workflow 是**给内容仓库用的模板**（palemoky/readings、palemoky/leetcode），
+# 不是给 bookling 自己用的。复制到内容仓库的 .github/workflows/ 下即可，
+# 检查逻辑留在 bookling 里统一维护。
+#
+# 成本：公开仓库的 Actions 分钟数不限，死链和措辞检查零成本。
+# 模型复核（review > 0）走 Workers AI 的每日免费额度，条数有上限。
+name: 内容体检
+
+on:
+  schedule:
+    - cron: "0 2 1 * *"   # 每月 1 号
+  workflow_dispatch:
+    inputs:
+      review:
+        description: "模型复核的篇数上限（0 = 不用模型）"
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出内容仓库
+        uses: actions/checkout@v7
+        with:
+          # 必须要完整历史：判断「多久没改过」靠的是 git log，
+          # 浅克隆下所有文件的日期都是检出时间，这个信号会整个失效
+          fetch-depth: 0
+
+      - name: 检出 bookling（检查脚本在这里）
+        uses: actions/checkout@v7
+        with:
+          repository: palemoky/bookling
+          ref: main
+          path: .bookling
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: 跑检查
+        id: check
+        run: |
+          node .bookling/scripts/staleness.mjs \
+            --repo . --out STALENESS.md \
+            --stale-months 12 \
+            --review "${{ github.event.inputs.review || 0 }}"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: 清理临时检出
+        run: rm -rf .bookling
+
+      - name: 开 PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/staleness
+          # 固定分支名 + 复用同一个 PR：每月开一个新 PR 只会变成噪音，
+          # 而一个持续更新的 PR 能直接看出「这个月比上个月多了什么」
+          title: "内容体检：${{ steps.check.outputs.dead }} 条死链 / ${{ steps.check.outputs.stale }} 篇待复核"
+          commit-message: "chore: 更新内容体检报告"
+          add-paths: STALENESS.md
+          delete-branch: false
+          body: |
+            自动生成的内容体检报告，改动只有 `STALENESS.md` 一个文件。
+
+            - **死链** ${{ steps.check.outputs.dead }} 条 —— 硬信号，基本没有误报
+            - **可能过时** ${{ steps.check.outputs.stale }} 篇 —— 启发式线索，**预期会有误报**
+
+            「可能过时」的判据是：这篇超过 12 个月没改过，**并且**里面有
+            「目前」「最新」「截至 20XX」这类带时效性的表述、或写死的版本号。
+            这些写法本身没问题，只是值得看一眼。
+
+            改完直接合并；不想改就关掉 PR，下次检查会重新开。
