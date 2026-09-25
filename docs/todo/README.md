@@ -23,7 +23,6 @@
 - [ ] CMU CS329Z
 - [ ] 《Prompt Engineering for Developers》(吴恩达课程配套)
 
-
 ## 系统设计
 
 - [ ] [The System Design Primer](https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md)
@@ -34,26 +33,9 @@
 - [ ] [Go语言原本](https://golang.design/under-the-hood)
 - [ ] [Go面试宝典](https://golang.design/go-questions/)
 
-## 源码学习
-
-**https://github.com/palemoky-dojo**
-
-- [ ] [Redis](https://github.com/redis/redis)
-- [ ] [go-ethereum](https://github.com/ethereum/go-ethereum)
-- [ ] [sing-box](https://github.com/SagerNet/sing-box)
-- [ ] [MITM](https://github.com/mitmproxy/mitmproxy)
-
-
-## 运维
-
-- [ ] [Kubernetes](https://github.com/kubernetes/kubernetes)
-- [ ] [《SRE：Google 运维解密》]()
-
 ## 数据库
 
 - [ ] CMU 15-445
-
-## 大数据
 
 ## 书籍
 
@@ -63,6 +45,22 @@
 - [ ] 《程序员修炼之道：通向务实的最高境界》
 - [ ] 《Google SRE 工作手册》
 - [ ] 《Streaming Systems》
+
+## 源码学习
+
+**https://github.com/palemoky-dojo**
+
+- [ ] [Redis](https://github.com/redis/redis)
+- [ ] [go-ethereum](https://github.com/ethereum/go-ethereum)
+- [ ] [sing-box](https://github.com/SagerNet/sing-box)
+- [ ] [MITM](https://github.com/mitmproxy/mitmproxy)
+
+## 运维
+
+- [ ] [Kubernetes](https://github.com/kubernetes/kubernetes)
+- [ ] [《SRE：Google 运维解密》]()
+
+## 大数据
 
 
 ## 练习项目
