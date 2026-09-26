@@ -17,6 +17,7 @@
 
 ## AI
 
+- [ ] Build an AI Agent (From Scratch)
 - [ ] 《AI Engineering》进行中
 - [ ] 《从零构建大模型》进行中
 - [ ] CMU CS336
