@@ -31,6 +31,7 @@
 
 ## Go
 
+- [ ] [Go并发](https://antonz.org/go-concurrency/goroutines/)
 - [ ] [Go语言原本](https://golang.design/under-the-hood)
 - [ ] [Go面试宝典](https://golang.design/go-questions/)
 
@@ -40,6 +41,7 @@
 
 ## 书籍
 
+- [ ] [凤凰架构](https://icyfenix.cn/)
 - [ ] 《高性能MySQL》（v4）
 - [ ] 《性能之巅》（v2）
 - [ ] 《UNIX 网络编程》
@@ -66,7 +68,19 @@
 
 ## 大数据
 
+## 工具
+
+- [ ] Emacs
+  - [ ] Org-mode 的todo、双链笔记、文学编程、复式记账
+  - [ ] Magit 的 git 管理
+  - [ ] Tramp 远程开发（fava渲染成专业终端）
 
 ## 练习项目
 
 - [ ] Rust写一个微信抢红包的服务端
+
+## 博客
+- [ ] Shopify
+- [ ] Uber
+- [ ] Cloudflare
+- [ ] Rob Pike
