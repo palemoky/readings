@@ -1,20 +1,20 @@
-# 内容体检：死链 + 可能过时的表述。
+# Content health check: dead links + possibly outdated statements.
 #
-# 这个 workflow 是**给内容仓库用的模板**（palemoky/readings、palemoky/leetcode），
-# 不是给 bookling 自己用的。复制到内容仓库的 .github/workflows/ 下即可，
-# 检查逻辑留在 bookling 里统一维护。
+# This workflow is a **template for content repos** (palemoky/readings, palemoky/leetcode),
+# not for bookling itself. Copy it into the content repo's .github/workflows/;
+# the check logic stays in bookling and is maintained in one place.
 #
-# 成本：公开仓库的 Actions 分钟数不限，死链和措辞检查零成本。
-# 模型复核（review > 0）走 Workers AI 的每日免费额度，条数有上限。
-name: 内容体检
+# Cost: Actions minutes are unlimited for public repos, so dead-link and wording checks are free.
+# Model review (review > 0) uses Workers AI's daily free quota, which caps the number of items.
+name: Content health check
 
 on:
   schedule:
-    - cron: "0 2 1 * *"   # 每月 1 号
+    - cron: "0 2 1 * *"   # 1st of every month
   workflow_dispatch:
     inputs:
       review:
-        description: "模型复核的篇数上限（0 = 不用模型）"
+        description: "Max number of articles for model review (0 = no model)"
         default: "0"
 
 permissions:
@@ -25,28 +25,40 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出内容仓库
+      - name: Check out content repo
         uses: actions/checkout@v7
         with:
-          # 必须要完整历史：判断「多久没改过」靠的是 git log，
-          # 浅克隆下所有文件的日期都是检出时间，这个信号会整个失效
+          # Full history is required: "how long since last modified" relies on git log.
+          # With a shallow clone every file's date is the checkout time, and the signal is lost entirely.
           fetch-depth: 0
 
-      - name: 检出 bookling（检查脚本在这里）
+      # The check script lives in bookling; two ways to get it are supported:
+      #
+      #   A. Keep a copy of scripts/staleness.mjs in the repo (single file, zero deps, just copy it)
+      #      — zero config, at the cost of syncing updates by hand
+      #   B. Check it out from bookling — single source of truth, but if bookling is private a PAT is **required**:
+      #      the default GITHUB_TOKEN only has access to the current repo; checking out another private repo returns 404
+      - name: Check out bookling (when the repo has no local copy)
+        if: ${{ hashFiles('scripts/staleness.mjs') == '' }}
         uses: actions/checkout@v7
         with:
           repository: palemoky/bookling
           ref: main
           path: .bookling
+          # Can be removed if bookling is public; required if private
+          token: ${{ secrets.BOOKLING_REPO_TOKEN }}
 
       - uses: actions/setup-node@v7
         with:
           node-version: 24
 
-      - name: 跑检查
+      - name: Run check
         id: check
         run: |
-          node .bookling/scripts/staleness.mjs \
+          SCRIPT=scripts/staleness.mjs
+          [ -f "$SCRIPT" ] || SCRIPT=.bookling/scripts/staleness.mjs
+          echo "Using $SCRIPT"
+          node "$SCRIPT" \
             --repo . --out STALENESS.md \
             --stale-months 12 \
             --review "${{ github.event.inputs.review || 0 }}"
@@ -54,27 +66,27 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: 清理临时检出
+      - name: Clean up temporary checkout
         run: rm -rf .bookling
 
-      - name: 开 PR
+      - name: Open PR
         uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/staleness
-          # 固定分支名 + 复用同一个 PR：每月开一个新 PR 只会变成噪音，
-          # 而一个持续更新的 PR 能直接看出「这个月比上个月多了什么」
-          title: "内容体检：${{ steps.check.outputs.dead }} 条死链 / ${{ steps.check.outputs.stale }} 篇待复核"
-          commit-message: "chore: 更新内容体检报告"
+          # Fixed branch name + reuse the same PR: a new PR every month is just noise,
+          # while one continuously updated PR shows directly "what's new this month vs. last month"
+          title: "Content health check: ${{ steps.check.outputs.dead }} dead links / ${{ steps.check.outputs.stale }} to review"
+          commit-message: "chore: update content health check report"
           add-paths: STALENESS.md
           delete-branch: false
           body: |
-            自动生成的内容体检报告，改动只有 `STALENESS.md` 一个文件。
+            Auto-generated content health check report. The only changed file is `STALENESS.md`.
 
-            - **死链** ${{ steps.check.outputs.dead }} 条 —— 硬信号，基本没有误报
-            - **可能过时** ${{ steps.check.outputs.stale }} 篇 —— 启发式线索，**预期会有误报**
+            - **Dead links**: ${{ steps.check.outputs.dead }} — hard signal, almost no false positives
+            - **Possibly outdated**: ${{ steps.check.outputs.stale }} — heuristic hints, **false positives expected**
 
-            「可能过时」的判据是：这篇超过 12 个月没改过，**并且**里面有
-            「目前」「最新」「截至 20XX」这类带时效性的表述、或写死的版本号。
-            这些写法本身没问题，只是值得看一眼。
+            An article is flagged "possibly outdated" when it hasn't been modified for over 12 months **and**
+            contains time-sensitive phrasing such as 「目前」 (currently), 「最新」 (latest), 「截至 20XX」 (as of 20XX), or hard-coded version numbers.
+            Such phrasing isn't wrong in itself; it's just worth a look.
 
-            改完直接合并；不想改就关掉 PR，下次检查会重新开。
+            Merge once fixed; if you don't want to change anything, close the PR and the next check will reopen it.
