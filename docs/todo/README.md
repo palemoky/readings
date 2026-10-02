@@ -71,7 +71,7 @@
 ## 工具
 
 - [ ] Emacs
-  - [ ] Org-mode 的todo、双链笔记、文学编程、复式记账
+  - [x] Org-mode 的todo、双链笔记、文学编程、复式记账
   - [ ] Magit 的 git 管理
   - [ ] Tramp 远程开发（fava渲染成专业终端）
 
