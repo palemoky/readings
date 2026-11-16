@@ -46,7 +46,6 @@
 - [ ] 《性能之巅》（v2）
 - [ ] 《UNIX 网络编程》
 - [ ] 《程序员修炼之道：通向务实的最高境界》
-- [ ] 《Google SRE 工作手册》
 - [ ] 《计算机程序的构造和解释》
 - [ ] 《Streaming Systems》
 - [ ] 《算法4》
@@ -65,6 +64,8 @@
 
 - [ ] [Kubernetes](https://github.com/kubernetes/kubernetes)
 - [ ] [《SRE：Google 运维解密》]()
+- [ ] [Software-Engineering-at-Google](https://qiangmzsx.github.io/Software-Engineering-at-Google/)（中文版）
+- [ ] [Google SRE 工作手册](https://redbearder.github.io/The-Site-Reliability-Workbook-CHS/)
 
 ## 大数据
 
