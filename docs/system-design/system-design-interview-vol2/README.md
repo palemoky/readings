@@ -142,7 +142,7 @@ R 树的“R”代表“Rectangle（矩形）”，其核心思想是聚合距�
 | **R 树 (R-Tree)**      | 数据库空间索引（PostGIS、MySQL Spatial）、POI 范围查询与 KNN 检索。   | 数据驱动，自适应数据分布；KNN 查询效率极高，是主流空间数据库的首选索引。 | 插入/删除开销大，树重平衡成本高，不适合高频写入场景。                                |
 
 <figure markdown>
-  ![](imgs/spatial-indexing-use-cases.webp){ width=70% }
+  ![](imgs/spatial-indexing-use-cases.webp){ width=85% }
 </figure>
 
 ## 附近的好友
