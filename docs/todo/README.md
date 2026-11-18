@@ -63,7 +63,7 @@
 ## 运维
 
 - [ ] [Kubernetes](https://github.com/kubernetes/kubernetes)
-- [ ] [《SRE：Google 运维解密》]()
+- [ ] [《SRE：Google 运维解密》（v2）](https://sre.google)
 - [ ] [Software-Engineering-at-Google](https://qiangmzsx.github.io/Software-Engineering-at-Google/)（中文版）
 - [ ] [Google SRE 工作手册](https://redbearder.github.io/The-Site-Reliability-Workbook-CHS/)
 
